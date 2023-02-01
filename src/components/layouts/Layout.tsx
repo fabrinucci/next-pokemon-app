@@ -8,14 +8,22 @@ interface LayoutProps {
 }
 
 export const Layout: FC<LayoutProps> = ({ title = 'Home', children }) => {
+  const origin = typeof window === 'undefined' ? '' : window.location.origin;
+
   return (
     <>
       <Head>
         <title>{`PokeBosti | ${title}`}</title>
         <meta name='author' content='Fabrizio Nucci' />
-        <meta name='title' content={`PokeBosti ${title}`} />
-        <meta name='description' content={`PokeBosti ${title} description`} />
-        <meta name='keywords' content='pokemon, pokedex' />
+        <meta name='title' content={`PokeBosti | ${title}`} />
+        <meta name='description' content={`PokeBosti | Info about ${title}`} />
+        <meta name='keywords' content='pokemon, pokedex, pokebosti' />
+        <meta property='og:title' content={`Info about ${title}`} />
+        <meta
+          property='og:description'
+          content={`Page where you will find info about ${title}.`}
+        />
+        <meta property='og:image' content={`${origin}/img/banner.png`} />
       </Head>
 
       <header>
@@ -24,7 +32,7 @@ export const Layout: FC<LayoutProps> = ({ title = 'Home', children }) => {
 
       <main>{children}</main>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

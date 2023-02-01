@@ -1,22 +1,49 @@
-import { FC } from 'react';
-import { Card, Grid, Text, Button, Row, Image } from '@nextui-org/react';
-import { SmallPokemon } from 'interfaces/pokemon-list';
+import { FC, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { Card, Grid, Text, Button, Row } from '@nextui-org/react';
+import confetti from 'canvas-confetti';
+import { SmallPokemon } from 'interfaces';
+import { localFavorites } from 'utils';
 
 interface PokemonProps {
   pokemon: SmallPokemon;
 }
 
 export const PokemonHomeCard: FC<PokemonProps> = ({ pokemon }) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    setIsFavorite(localFavorites.existInFavorites(pokemon.id));
+  }, [pokemon.id]);
+
+  const handleFavorites = () => {
+    localFavorites.toggleFavorites(pokemon.id);
+    setIsFavorite(!isFavorite);
+
+    if (isFavorite) return;
+
+    confetti({
+      zIndex: 999,
+      particleCount: 100,
+      spread: 160,
+      angle: 100,
+      startVelocity: 75,
+      origin: {
+        x: 0.5,
+        y: 0.5,
+      },
+    });
+  };
+
   const router = useRouter();
 
   const onPokemonClick = () => {
-    router.push(`/pokemon/${pokemon.id}`);
+    router.push(`/name/${pokemon.name}`);
   };
 
   return (
-    <Grid xs={6} sm={4} md={3} xl={2}>
-      <Card onClick={onPokemonClick} isPressable isHoverable>
+    <Grid xs={12} sm={4} md={3}>
+      <Card onPress={onPokemonClick} isPressable isHoverable>
         <Card.Header>
           <Text h3 transform='capitalize'>
             #{pokemon.id} {pokemon.name}
@@ -24,7 +51,7 @@ export const PokemonHomeCard: FC<PokemonProps> = ({ pokemon }) => {
         </Card.Header>
         <Card.Divider />
         <Card.Body>
-          <Image
+          <Card.Image
             src={`${pokemon.img}`}
             alt={`${pokemon.name}`}
             objectFit='cover'
@@ -33,8 +60,12 @@ export const PokemonHomeCard: FC<PokemonProps> = ({ pokemon }) => {
         </Card.Body>
         <Card.Footer>
           <Row justify='center'>
-            <Button ghost color='gradient'>
-              Save to favorites
+            <Button
+              onClick={handleFavorites}
+              color='gradient'
+              ghost={!isFavorite}
+            >
+              {!isFavorite ? 'Save to favorites' : 'Remove from favorites'}
             </Button>
           </Row>
         </Card.Footer>

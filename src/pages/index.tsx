@@ -3,6 +3,7 @@ import { pokeApi } from 'api';
 import { PokemonListResponse, SmallPokemon } from 'interfaces';
 import { Layout } from 'components/layouts';
 import { PokemonList } from 'components/pokemon';
+import { Text } from '@nextui-org/react';
 
 interface Props {
   pokemons: SmallPokemon[];
@@ -11,7 +12,16 @@ interface Props {
 const Home: NextPage<Props> = ({ pokemons }) => {
   return (
     <Layout>
-      <h1>Pokemon HomePage</h1>
+      <Text
+        h1
+        css={{
+          margin: '40px 0',
+          textAlign: 'center',
+          textGradient: '45deg, $blue600 -20%, $pink600 50%',
+        }}
+      >
+        Pokemon List
+      </Text>
       <PokemonList pokemons={pokemons} />
     </Layout>
   );

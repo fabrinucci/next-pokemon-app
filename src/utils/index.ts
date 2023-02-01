@@ -1,3 +1,3 @@
-export const capitalized = (str: string) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
+export * from './capitalized';
+export * from './getPokemonInfo';
+export { default as localFavorites } from './localFavorites';

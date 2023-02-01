@@ -1,9 +1,8 @@
 import { GetStaticPaths, NextPage, GetStaticProps } from 'next';
-import { Layout } from '../../components/layouts/Layout';
-import { pokeApi } from 'api';
-import { Pokemon } from '../../interfaces';
+import { Pokemon } from 'interfaces';
+import { capitalized, getPokemonInfo } from 'utils';
+import { Layout } from 'components/layouts';
 import { PokemonCard } from 'components/pokemon';
-import { capitalized } from 'utils';
 
 interface Props {
   pokemon: Pokemon;
@@ -18,7 +17,9 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
-  const allPokemons = [...Array(151)].map((v, index) => `${index + 1}`);
+  const allPokemons: string[] = [...Array(151)].map(
+    (_, index) => `${index + 1}`
+  );
 
   return {
     paths: allPokemons.map((id) => ({
@@ -30,12 +31,11 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id } = params as { id: string };
-  const { data } = await pokeApi.get(`/pokemon/${id}`);
-  console.log(data);
+  const pokemon = await getPokemonInfo(id);
 
   return {
     props: {
-      pokemon: data,
+      pokemon,
     },
   };
 };
