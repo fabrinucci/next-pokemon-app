@@ -7,6 +7,7 @@ interface FavoritesProps {
 }
 
 export const Favorites: FC<FavoritesProps> = ({ pokeId }) => {
+  const pokemonImg = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeId}.png`;
   const router = useRouter();
 
   const onPokemonClick = () => {
@@ -14,7 +15,7 @@ export const Favorites: FC<FavoritesProps> = ({ pokeId }) => {
   };
 
   return (
-    <Grid xs={6} sm={3} md={2} xl={1} css={{ marginTop: '20px' }}>
+    <Grid xs={6} sm={4} md={2} xl={1} css={{ marginTop: '20px' }}>
       <Card
         onClick={onPokemonClick}
         isPressable
@@ -22,7 +23,7 @@ export const Favorites: FC<FavoritesProps> = ({ pokeId }) => {
         css={{ padding: '10px' }}
       >
         <Card.Image
-          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokeId}.svg`}
+          src={pokemonImg}
           alt='Pokemon Favorite'
           width='100%'
           height={140}

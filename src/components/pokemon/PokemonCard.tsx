@@ -20,6 +20,8 @@ interface PokemonCardProps {
   pokemon: Pokemon;
 }
 
+const notFoundImg = '/img/not_found.jpg';
+
 export const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -67,7 +69,8 @@ export const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
             <Card.Image
               src={
                 pokemon.sprites.other?.dream_world.front_default ||
-                'no-image.png'
+                pokemon.sprites.other?.['official-artwork'].front_default ||
+                notFoundImg
               }
               alt={pokemon.name}
               height={200}
@@ -94,7 +97,7 @@ export const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
               {pokemon.name}
             </Text>
             <Button
-              onPress={handleFavorites}
+              onClick={handleFavorites}
               color='gradient'
               ghost={!isFavorite}
             >
@@ -155,32 +158,38 @@ export const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
             <Spacer y={1} />
             <Divider />
             <Text h2>Sprites:</Text>
-            <Container display='flex'>
-              <Card.Image
-                src={pokemon.sprites.front_default}
-                alt={`${pokemon.name} sprite`}
-                height={100}
-                width={100}
-              />
-              <Card.Image
-                src={pokemon.sprites.back_default}
-                alt={`${pokemon.name} sprite`}
-                height={100}
-                width={100}
-              />
-              <Card.Image
-                src={pokemon.sprites.front_shiny}
-                alt={`${pokemon.name} sprite`}
-                height={100}
-                width={100}
-              />
-              <Card.Image
-                src={pokemon.sprites.back_shiny}
-                alt={`${pokemon.name} sprite`}
-                height={100}
-                width={100}
-              />
-            </Container>
+            {!pokemon.sprites.front_default || !pokemon.sprites.back_default ? (
+              <Text color='grey' size={25}>
+                We are working on the sprites of this pokemon
+              </Text>
+            ) : (
+              <Container display='flex'>
+                <Card.Image
+                  src={pokemon.sprites.front_default}
+                  alt={`${pokemon.name} sprite`}
+                  height={100}
+                  width={100}
+                />
+                <Card.Image
+                  src={pokemon.sprites.back_default}
+                  alt={`${pokemon.name} sprite`}
+                  height={100}
+                  width={100}
+                />
+                <Card.Image
+                  src={pokemon.sprites.front_shiny}
+                  alt={`${pokemon.name} sprite`}
+                  height={100}
+                  width={100}
+                />
+                <Card.Image
+                  src={pokemon.sprites.back_shiny}
+                  alt={`${pokemon.name} sprite`}
+                  height={100}
+                  width={100}
+                />
+              </Container>
+            )}
           </Card.Body>
         </Card>
       </Grid>
