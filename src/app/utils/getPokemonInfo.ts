@@ -1,5 +1,5 @@
-import { pokeApi } from 'api';
-import { Pokemon } from 'interfaces';
+import { pokeApi } from 'app/api';
+import { Pokemon } from 'app/interfaces';
 
 export const getPokemonInfo = async (nameOrId: string) => {
   try {
