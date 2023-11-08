@@ -15,20 +15,18 @@ export const Favorites = ({ pokeId }: FavoritesProps) => {
   };
 
   return (
-    <div className='grid grid-cols-2 p-6 sm:grid-cols-3 gap-x-6 gap-y-8 lg:grid-cols-4 xl:grid-cols-6 mt-[20px]'>
-      <Card
-        className='p-[10px]'
-        onClick={onPokemonClick}
-        isPressable
-        isHoverable
-      >
-        <Image
-          src={pokemonImg}
-          alt='Pokemon Favorite'
-          width='100%'
-          height={140}
-        />
-      </Card>
-    </div>
+    <Card
+      className='flex items-center w-full p-[10px]'
+      onClick={onPokemonClick}
+      isPressable
+      isHoverable
+    >
+      <Image
+        className='p-2 h-[200px] w-full'
+        src={pokemonImg}
+        alt='Pokemon Favorite'
+        width='100%'
+      />
+    </Card>
   );
 };

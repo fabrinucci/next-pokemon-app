@@ -14,10 +14,16 @@ export default function FavoritesPage() {
       {favoritePokemons.length === 0 ? (
         <NoFavorites />
       ) : (
-        <div className='flex gap-2'>
-          {favoritePokemons.map((pokeId) => (
-            <Favorites key={pokeId} pokeId={pokeId} />
-          ))}
+        <div>
+          <h1 className='my-[40px] text-5xl text-center font-bold text-purple-400'>
+            Your favorite pokemons
+          </h1>
+
+          <div className='grid grid-cols-auto-fill mt-20 p-6 gap-4'>
+            {favoritePokemons.map((pokeId) => (
+              <Favorites key={pokeId} pokeId={pokeId} />
+            ))}
+          </div>
         </div>
       )}
     </div>
