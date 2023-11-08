@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { SmallPokemon } from 'interfaces';
-// import { PokemonHomeCard } from '.';
+import { PokemonHomeCard } from './';
 
 interface PokemonListProps {
   pokemons: SmallPokemon[];
@@ -8,17 +8,10 @@ interface PokemonListProps {
 
 export const PokemonList: FC<PokemonListProps> = ({ pokemons }) => {
   return (
-    <div className='flex justify-start gap-2'>
+    <div className='grid grid-cols-2 p-6 sm:grid-cols-3 gap-x-6 gap-y-8 lg:grid-cols-4 xl:grid-cols-6'>
       {pokemons?.map((poke) => (
-        <div key={poke.id}>
-          <div>{poke.name}</div>
-        </div>
+        <PokemonHomeCard key={poke.id} pokemon={poke} />
       ))}
     </div>
-    // <Grid.Container gap={2} justify='flex-start'>
-    //   {pokemons.map((poke) => (
-    //     <PokemonHomeCard key={poke.id} pokemon={poke} />
-    //   ))}
-    // </Grid.Container>
   );
 };
