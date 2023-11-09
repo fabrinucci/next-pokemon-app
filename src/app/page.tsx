@@ -1,6 +1,6 @@
-import type { PokemonListResponse, SmallPokemon } from '../interfaces';
-import { pokeApi } from '../api';
-import { PokemonList } from '../components/pokemon';
+import type { PokemonListResponse, SmallPokemon } from 'interfaces';
+import { pokeApi } from 'api';
+import { PokemonList } from 'components/pokemon';
 
 const loadPokemons = async () => {
   const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=151');

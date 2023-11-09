@@ -2,16 +2,16 @@ import type { Pokemon } from 'interfaces';
 import { getPokemonInfo } from 'utils';
 import { PokemonCard } from 'components/pokemon';
 
-const loadPokemon = async (id: string) => {
-  const pokemon = await getPokemonInfo(id);
+const loadPokemon = async (name: string) => {
+  const pokemon = await getPokemonInfo(name);
   return pokemon as Pokemon;
 };
 
 export default async function PokemonPage({
   params,
 }: {
-  params: { id: string };
+  params: { name: string };
 }) {
-  const pokemon = await loadPokemon(params.id);
+  const pokemon = await loadPokemon(params.name);
   return <PokemonCard pokemon={pokemon} />;
 }

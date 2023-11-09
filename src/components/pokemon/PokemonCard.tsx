@@ -1,5 +1,5 @@
 'use client';
-import { FC, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Card,
   Divider,
@@ -10,7 +10,7 @@ import {
 } from '@nextui-org/react';
 import confetti from 'canvas-confetti';
 
-import { Pokemon } from 'interfaces';
+import type { Pokemon } from 'interfaces';
 import { capitalized, localFavorites } from 'utils';
 
 interface PokemonCardProps {
@@ -19,7 +19,7 @@ interface PokemonCardProps {
 
 const notFoundImg = '/img/not_found.jpg';
 
-export const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
+export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {

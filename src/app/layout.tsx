@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import './globals.css';
-import { Navbar } from '../components/ui';
+import { Navbar } from 'components/ui';
 import { Providers } from './providers';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'PokeBosti',

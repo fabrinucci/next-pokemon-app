@@ -1,14 +1,13 @@
 'use client';
-import { FC } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card, CardBody, CardHeader, Divider, Image } from '@nextui-org/react';
-import { SmallPokemon } from 'interfaces';
+import type { SmallPokemon } from 'interfaces';
 
 interface PokemonProps {
   pokemon: SmallPokemon;
 }
 
-export const PokemonHomeCard: FC<PokemonProps> = ({ pokemon }) => {
+export const PokemonHomeCard = ({ pokemon }: PokemonProps) => {
   const router = useRouter();
 
   const onPokemonClick = () => {
