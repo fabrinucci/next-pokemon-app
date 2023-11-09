@@ -19,7 +19,7 @@ export default function FavoritesPage() {
             Your favorite pokemons
           </h1>
 
-          <div className='grid grid-cols-auto-fill mt-20 p-6 gap-4'>
+          <div className='grid grid-cols-auto-fill p-6 gap-4'>
             {favoritePokemons.map((pokeId) => (
               <Favorites key={pokeId} pokeId={pokeId} />
             ))}

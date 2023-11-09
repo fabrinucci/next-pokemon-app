@@ -18,6 +18,7 @@ const config: Config = {
       },
       gridTemplateColumns: {
         'auto-fill': 'repeat(auto-fill, minmax(200px, 1fr))',
+        percentage: '43% 55%',
       },
     },
   },

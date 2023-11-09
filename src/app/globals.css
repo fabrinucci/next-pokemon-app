@@ -13,3 +13,10 @@
   margin: 0;
   padding: 0;
 }
+
+.bg-gradient {
+  border: 3px solid transparent;
+  background:
+    linear-gradient(black, black) padding-box,
+    linear-gradient(112deg, #06b7db -63.59%, #ff4ecd -20.3%, #0072f5 70.46%) border-box;
+}
