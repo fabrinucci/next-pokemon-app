@@ -10,5 +10,6 @@
   "semi": true,
   "singleQuote": true,
   "trailingComma": "es5",
-  "parser": "typescript"
+  "parser": "typescript",
+  "plugins": ["prettier-plugin-tailwindcss"]
 }
