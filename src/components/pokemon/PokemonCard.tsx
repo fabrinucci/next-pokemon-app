@@ -12,6 +12,7 @@ import confetti from 'canvas-confetti';
 
 import type { Pokemon } from 'interfaces';
 import { capitalized, localFavorites } from 'utils';
+import { separateString } from '../../utils/separateString';
 
 interface PokemonCardProps {
   pokemon: Pokemon;
@@ -99,7 +100,7 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
                 <ul className='flex gap-4 text-center'>
                   {pokemon.abilities.map((a, index) => (
                     <li className='text-lg font-semibold' key={index}>
-                      {capitalized(a.ability.name)}
+                      {separateString(capitalized(a.ability.name))}
                     </li>
                   ))}
                 </ul>
