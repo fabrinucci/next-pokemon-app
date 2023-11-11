@@ -15,11 +15,11 @@ export default function FavoritesPage() {
         <NoFavorites />
       ) : (
         <div>
-          <h1 className='my-[40px] text-5xl text-center font-bold text-purple-400'>
+          <h1 className='my-[40px] text-center text-5xl font-bold text-purple-400'>
             Your favorite pokemons
           </h1>
 
-          <div className='grid grid-cols-auto-fill p-6 gap-4'>
+          <div className='grid grid-cols-auto-fill gap-4 p-6'>
             {favoritePokemons.map((pokeId) => (
               <Favorites key={pokeId} pokeId={pokeId} />
             ))}

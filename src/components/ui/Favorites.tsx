@@ -16,13 +16,13 @@ export const Favorites = ({ pokeId }: FavoritesProps) => {
 
   return (
     <Card
-      className='flex items-center w-full p-[10px]'
+      className='flex w-full items-center p-[10px]'
       onClick={onPokemonClick}
       isPressable
       isHoverable
     >
       <Image
-        className='p-2 h-[200px] w-full'
+        className='h-[200px] w-full p-2'
         src={pokemonImg}
         alt='Pokemon Favorite'
         width='100%'

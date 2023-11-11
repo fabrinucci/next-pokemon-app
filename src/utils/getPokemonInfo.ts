@@ -9,9 +9,10 @@ export const getPokemonInfo = async (nameOrId: string) => {
       id: data.id,
       name: data.name,
       sprites: data.sprites,
-      species: data.species,
       abilities: data.abilities,
       types: data.types,
+      height: data.height,
+      weight: data.weight,
     };
   } catch (error) {
     return null;

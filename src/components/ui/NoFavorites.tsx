@@ -2,7 +2,7 @@ import { Image } from '@nextui-org/react';
 
 export const NoFavorites = () => {
   return (
-    <div className='flex flex-col justify-center items-center h-[calc(100vh-120px)]'>
+    <div className='flex h-[calc(100vh-120px)] flex-col items-center justify-center'>
       <h1 className='text-5xl font-bold'>No favorites</h1>
       <Image
         className='mt-16'

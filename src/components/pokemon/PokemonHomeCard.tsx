@@ -17,7 +17,7 @@ export const PokemonHomeCard = ({ pokemon }: PokemonProps) => {
   return (
     <Card onClick={onPokemonClick} isPressable isHoverable>
       <CardHeader>
-        <h3 className='font-semibold text-base sm:text-xl capitalize'>
+        <h3 className='text-base font-semibold capitalize sm:text-xl'>
           #{pokemon.id} {pokemon.name}
         </h3>
       </CardHeader>
@@ -25,7 +25,7 @@ export const PokemonHomeCard = ({ pokemon }: PokemonProps) => {
       <CardBody className='flex items-center'>
         <Image
           width='100%'
-          className='p-2 h-[150px] w-full'
+          className='h-[150px] w-full p-2'
           src={`${pokemon.img}`}
           alt={`${pokemon.name}`}
         />
