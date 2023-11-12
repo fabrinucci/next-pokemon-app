@@ -1,31 +1,18 @@
-'use client';
-import { useState, useEffect } from 'react';
-import { localFavorites } from 'utils';
-import { Favorites, NoFavorites } from 'components/ui';
+import { Metadata } from 'next';
+import { PokemonFavorites } from 'components/pokemon';
+import { openGraphImage } from '../shared-metadata';
+
+export const metadata: Metadata = {
+  title: 'Favorites',
+  description: 'Here you can see all your favorite pokemons',
+  keywords: ['pokemon, pokedex, favorites'],
+  openGraph: {
+    ...openGraphImage,
+    title: 'Favorite pokemons',
+    description: 'Page where you will find all your favorite pokemons',
+  },
+};
 
 export default function FavoritesPage() {
-  const [favoritePokemons, setFavoritesPokemons] = useState<number[]>([]);
-
-  useEffect(() => {
-    setFavoritesPokemons(localFavorites.pokemons());
-  }, []);
-  return (
-    <div>
-      {favoritePokemons.length === 0 ? (
-        <NoFavorites />
-      ) : (
-        <div>
-          <h1 className='my-[40px] text-center text-5xl font-bold text-purple-400'>
-            Your favorite pokemons
-          </h1>
-
-          <div className='grid grid-cols-auto-fill gap-4 p-6'>
-            {favoritePokemons.map((pokeId) => (
-              <Favorites key={pokeId} pokeId={pokeId} />
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
+  return <PokemonFavorites />;
 }

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Lato } from 'next/font/google';
 import { Navbar } from 'components/ui';
 import { Providers } from './providers';
+import { openGraphImage } from './shared-metadata';
 import './globals.css';
 
 const mainFont = Lato({
@@ -11,7 +12,10 @@ const mainFont = Lato({
 });
 
 export const metadata: Metadata = {
-  title: 'PokeBosti',
+  title: {
+    default: 'PokeBosti',
+    template: 'PokeBosti | %s ',
+  },
   description: 'PokeBosti app',
   authors: {
     name: 'Fabrizio Nucci',
@@ -19,8 +23,9 @@ export const metadata: Metadata = {
   },
   keywords: ['pokemon, pokedex, pokebosti'],
   openGraph: {
-    title: 'Info about ${title}',
-    description: 'Page where you will find info about ${title}.',
+    ...openGraphImage,
+    title: 'Pokebosti home',
+    description: 'Page where you will find all pokemons.',
   },
 };
 

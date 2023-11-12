@@ -73,7 +73,7 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
               isFavorite
                 ? 'bg-gradient-to-r from-indigo-500 to-red-500'
                 : 'bg-gradient'
-            } h-[45px] w-[180px] font-semibold text-white`}
+            } h-[45px] w-[180px] font-semibold`}
             onClick={handleFavorites}
           >
             {!isFavorite ? 'Save to favorites' : 'Remove from favorites'}
@@ -97,7 +97,7 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
               </div>
               <div className='flex flex-col items-center justify-center gap-2 sm:items-start'>
                 <h3 className='text-2xl font-bold'>Abilities</h3>
-                <ul className='flex gap-4 text-center'>
+                <ul className='flex flex-wrap gap-4 text-center'>
                   {pokemon.abilities.map((a, index) => (
                     <li className='text-lg font-semibold' key={index}>
                       {separateString(capitalized(a.ability.name))}
