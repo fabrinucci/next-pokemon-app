@@ -1,4 +1,4 @@
-import type { SmallPokemon } from 'interfaces';
+import type { SmallPokemon } from '@/interfaces/pokemon-list';
 import { PokemonHomeCard } from './';
 
 interface PokemonListProps {

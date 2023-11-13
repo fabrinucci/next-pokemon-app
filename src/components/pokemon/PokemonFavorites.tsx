@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Favorites, NoFavorites } from 'components/ui';
-import { localFavorites } from 'utils';
+import { Favorites, NoFavorites } from '@/components/ui';
+import localFavorites from '@/utils/localFavorites';
 
 export const PokemonFavorites = () => {
   const [favoritePokemons, setFavoritesPokemons] = useState<number[]>([]);

@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
-import type { Pokemon, PokemonListResponse } from 'interfaces';
-import { capitalized, getPokemonInfo } from 'utils';
-import { PokemonCard } from 'components/pokemon';
-import { pokeApi } from 'api';
-import { openGraphImage } from 'app/shared-metadata';
+import type { PokemonListResponse } from '@/interfaces/pokemon-list';
+import type { Pokemon } from '@/interfaces/pokemon';
+import { capitalized } from '@/utils/capitalized';
+import { getPokemonInfo } from '@/utils/getPokemonInfo';
+import { PokemonCard } from '@/components/pokemon';
+import pokeApi from '@/api/pokeApi';
+import { openGraphImage } from '@/app/shared-metadata';
 
 interface PageProps {
   params: {

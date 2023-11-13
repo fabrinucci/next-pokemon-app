@@ -1,6 +1,5 @@
 import NavLink from 'next/link';
-import { Spacer } from '@nextui-org/spacer';
-import { Link } from '@nextui-org/link';
+import { Link, Spacer } from '@nextui-org/react';
 
 export const Navbar = () => {
   return (

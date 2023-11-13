@@ -10,9 +10,10 @@ import {
 } from '@nextui-org/react';
 import confetti from 'canvas-confetti';
 
-import type { Pokemon } from 'interfaces';
-import { capitalized, localFavorites } from 'utils';
-import { separateString } from '../../utils/separateString';
+import type { Pokemon } from '@/interfaces/pokemon';
+import localFavorites from '@/utils/localFavorites';
+import { capitalized } from '@/utils/capitalized';
+import { separateString } from '@/utils/separateString';
 
 interface PokemonCardProps {
   pokemon: Pokemon;
