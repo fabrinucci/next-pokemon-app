@@ -35,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html className={`${mainFont.className} dark`} lang='en'>
+    <html className={`${mainFont.className} h-full dark`} lang='en'>
       <body>
         <Providers>
           <header>
