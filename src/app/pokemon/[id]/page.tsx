@@ -1,11 +1,32 @@
-import type { Pokemon } from 'interfaces';
-import { getPokemonInfo } from 'utils';
-import { PokemonCard } from 'components/pokemon';
+import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
+import type { Pokemon } from 'interfaces';
+import { capitalized, getPokemonInfo } from 'utils';
+import { PokemonCard } from 'components/pokemon';
+import { openGraphImage } from 'app/shared-metadata';
 
 interface PageProps {
   params: {
     id: string;
+  };
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const pokemon = await loadPokemon(params.id);
+
+  return {
+    title: capitalized(pokemon.name),
+    description: `Information about ${capitalized(pokemon.name)}`,
+    keywords: [`pokemon, pokedex, ${pokemon.name}`],
+    openGraph: {
+      ...openGraphImage,
+      title: capitalized(pokemon.name),
+      description: `Page where you will find info about ${capitalized(
+        pokemon.name
+      )}`,
+    },
   };
 }
 

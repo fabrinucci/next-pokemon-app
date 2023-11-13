@@ -12,6 +12,7 @@ import confetti from 'canvas-confetti';
 
 import type { Pokemon } from 'interfaces';
 import { capitalized, localFavorites } from 'utils';
+import { separateString } from '../../utils/separateString';
 
 interface PokemonCardProps {
   pokemon: Pokemon;
@@ -46,7 +47,7 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
   };
 
   return (
-    <div className='grid md:grid-cols-percentage md:gap-[2%] gap-6 px-6 py-10'>
+    <div className='grid gap-6 px-6 py-10 md:grid-cols-percentage md:gap-[2%]'>
       <Card className='min-h-[360px]' isHoverable isPressable>
         <CardBody className='items-center justify-center'>
           <Image
@@ -64,7 +65,7 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
       </Card>
 
       <Card className='p-5'>
-        <CardHeader className='flex flex-col gap-5 sm:flex-row sm:justify-between'>
+        <CardHeader className='flex flex-col gap-8 sm:flex-row sm:justify-between lg:gap-6'>
           <h1 className='text-5xl font-bold capitalize'>{pokemon.name}</h1>
           <Button
             size='md'
@@ -72,43 +73,62 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
               isFavorite
                 ? 'bg-gradient-to-r from-indigo-500 to-red-500'
                 : 'bg-gradient'
-            } h-[45px] w-[180px] text-white font-semibold`}
+            } h-[45px] w-[180px] font-semibold`}
             onClick={handleFavorites}
           >
             {!isFavorite ? 'Save to favorites' : 'Remove from favorites'}
           </Button>
         </CardHeader>
         <CardBody>
-          <h2 className='text-3xl font-semibold'>Description:</h2>
-          <div className='py-4'>
-            <div className='flex flex-col items-start gap-3'>
-              <div className='flex gap-2'>
-                <h3 className='font-semibold text-xl'>Specie:</h3>
-                <h3 className='text-xl'>{capitalized(pokemon.species.name)}</h3>
+          <section className='py-4'>
+            <h2 className='mb-6 text-center text-3xl font-semibold sm:text-left'>
+              Description:
+            </h2>
+            <div className='grid justify-center gap-6 sm:grid-cols-2'>
+              <div className='flex flex-col items-center justify-center gap-2 sm:items-start'>
+                <h3 className='text-2xl font-bold'>Types</h3>
+                <ul className='flex gap-4'>
+                  {pokemon.types.map((t, index) => (
+                    <li className='text-lg font-semibold' key={index}>
+                      {capitalized(t.type.name)}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <div className='flex gap-[10px]'>
-                <h3 className='font-semibold text-xl'>Ability:</h3>
-                <h3 className='text-xl'>
-                  {capitalized(pokemon.abilities[0].ability.name)}
-                </h3>
+              <div className='flex flex-col items-center justify-center gap-2 sm:items-start'>
+                <h3 className='text-2xl font-bold'>Abilities</h3>
+                <ul className='flex flex-wrap gap-4 text-center'>
+                  {pokemon.abilities.map((a, index) => (
+                    <li className='text-lg font-semibold' key={index}>
+                      {separateString(capitalized(a.ability.name))}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <div className='flex gap-[10px]'>
-                <h3 className='font-semibold text-xl'>Type:</h3>
-                <h3 className='text-xl'>
-                  {capitalized(pokemon.types[0].type.name)}
-                </h3>
+              <div className='flex flex-col items-center justify-center gap-2 sm:items-start'>
+                <h3 className='text-2xl font-bold'>Height</h3>
+                <p className='text-xl font-semibold'>{pokemon.height / 10} m</p>
+              </div>
+              <div className='flex flex-col items-center justify-center gap-2 sm:items-start'>
+                <h3 className='text-2xl font-bold'>Weight</h3>
+                <p className='text-xl font-semibold'>
+                  {pokemon.weight / 10} kg
+                </p>
               </div>
             </div>
-          </div>
+          </section>
+
           <Divider />
           <div className='mt-4'>
-            <h2 className='text-3xl font-semibold'>Sprites:</h2>
+            <h2 className='mb-6 text-center text-3xl font-semibold sm:text-left'>
+              Sprites:
+            </h2>
             {!pokemon.sprites.front_default || !pokemon.sprites.back_default ? (
-              <p className='mt-3 text-gray-500'>
+              <p className='text-gray-500'>
                 We are working on the sprites of this pokemon
               </p>
             ) : (
-              <div className='flex justify-around mt-3'>
+              <div className='flex justify-around'>
                 <Image
                   src={pokemon.sprites.front_default}
                   alt={`${pokemon.name} sprite`}

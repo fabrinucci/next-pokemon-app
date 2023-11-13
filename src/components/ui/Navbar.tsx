@@ -4,7 +4,7 @@ import { Link } from '@nextui-org/link';
 
 export const Navbar = () => {
   return (
-    <nav className='flex items-center justify-between w-full py-[20px] px-[50px] bg-neutral-800'>
+    <nav className='flex w-full items-center justify-between bg-neutral-800 px-[50px] py-[20px]'>
       <NavLink href='/' legacyBehavior>
         <Link className='cursor-pointer'>
           <h2 className='text-5xl'>P</h2>
