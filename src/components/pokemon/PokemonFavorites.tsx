@@ -21,7 +21,10 @@ export const PokemonFavorites = () => {
             Your favorite pokemons
           </h1>
 
-          <div className='grid grid-cols-auto-fill gap-4 p-6'>
+          <div
+            data-testid='favorite-cards'
+            className='grid grid-cols-auto-fill gap-4 p-6'
+          >
             {favoritePokemons.map((pokeId) => (
               <Favorite key={pokeId} pokeId={pokeId} />
             ))}
