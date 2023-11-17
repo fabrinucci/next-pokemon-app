@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 
 jest.mock('next/navigation', () => require('next-router-mock'));
 
-describe('Pokemon', () => {
+describe('PokemonById', () => {
   it('should display the image and title', async () => {
     const params = {
       id: '10',
