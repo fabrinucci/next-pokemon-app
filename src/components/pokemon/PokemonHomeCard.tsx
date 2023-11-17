@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { Card, CardBody, CardHeader, Divider, Image } from '@nextui-org/react';
-import type { SmallPokemon } from 'interfaces';
+import type { SmallPokemon } from '@/interfaces/pokemon-list';
 
 interface PokemonProps {
   pokemon: SmallPokemon;
@@ -15,7 +15,12 @@ export const PokemonHomeCard = ({ pokemon }: PokemonProps) => {
   };
 
   return (
-    <Card onClick={onPokemonClick} isPressable isHoverable>
+    <Card
+      data-testid='pokemon-home-card'
+      onClick={onPokemonClick}
+      isPressable
+      isHoverable
+    >
       <CardHeader>
         <h3 className='text-base font-semibold capitalize sm:text-xl'>
           #{pokemon.id} {pokemon.name}

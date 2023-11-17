@@ -2,11 +2,11 @@
 import { useRouter } from 'next/navigation';
 import { Card, Image } from '@nextui-org/react';
 
-interface FavoritesProps {
+interface FavoriteProps {
   pokeId: number;
 }
 
-export const Favorites = ({ pokeId }: FavoritesProps) => {
+export const Favorite = ({ pokeId }: FavoriteProps) => {
   const pokemonImg = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeId}.png`;
   const router = useRouter();
 
@@ -16,6 +16,7 @@ export const Favorites = ({ pokeId }: FavoritesProps) => {
 
   return (
     <Card
+      data-testid='favorite-card'
       className='flex w-full items-center p-[10px]'
       onClick={onPokemonClick}
       isPressable

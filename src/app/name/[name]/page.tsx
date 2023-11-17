@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
-import type { Pokemon, PokemonListResponse } from 'interfaces';
-import { capitalized, getPokemonInfo } from 'utils';
-import { PokemonCard } from 'components/pokemon';
-import { pokeApi } from 'api';
-import { openGraphImage } from 'app/shared-metadata';
+import type { PokemonListResponse } from '@/interfaces/pokemon-list';
+import type { Pokemon } from '@/interfaces/pokemon';
+import { capitalized } from '@/utils/capitalized';
+import { getPokemonInfo } from '@/utils/getPokemonInfo';
+import { PokemonCard } from '@/components/pokemon';
+import pokeApi from '@/api/pokeApi';
+import { openGraphImage } from '@/app/shared-metadata';
 
 interface PageProps {
   params: {
@@ -41,11 +43,11 @@ export async function generateStaticParams() {
 
 const loadPokemon = async (name: string) => {
   const pokemon = await getPokemonInfo(name);
+  if (!pokemon) return redirect('/');
   return pokemon as Pokemon;
 };
 
 export default async function PokemonPage({ params }: PageProps) {
   const pokemon = await loadPokemon(params.name);
-  if (!pokemon) return redirect('/');
   return <PokemonCard pokemon={pokemon} />;
 }

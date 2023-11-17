@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import { Lato } from 'next/font/google';
-import { Navbar } from 'components/ui';
-import { Providers } from './providers';
-import { openGraphImage } from './shared-metadata';
-import './globals.css';
+import { Navbar } from '@/components/ui';
+import { Providers } from '@/app/providers';
+import { openGraphImage } from '@/app/shared-metadata';
+import '@/app/globals.css';
 
 const mainFont = Lato({
   weight: ['300', '400', '700', '900'],

@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
-import { PokemonFavorites } from 'components/pokemon';
-import { openGraphImage } from '../shared-metadata';
+import { PokemonFavorites } from '@/components/pokemon';
+import { openGraphImage } from '@/app/shared-metadata';
 
 export const metadata: Metadata = {
   title: 'Favorites',

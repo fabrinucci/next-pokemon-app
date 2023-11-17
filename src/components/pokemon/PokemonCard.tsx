@@ -10,9 +10,10 @@ import {
 } from '@nextui-org/react';
 import confetti from 'canvas-confetti';
 
-import type { Pokemon } from 'interfaces';
-import { capitalized, localFavorites } from 'utils';
-import { separateString } from '../../utils/separateString';
+import type { Pokemon } from '@/interfaces/pokemon';
+import localFavorites from '@/utils/localFavorites';
+import { capitalized } from '@/utils/capitalized';
+import { separateString } from '@/utils/separateString';
 
 interface PokemonCardProps {
   pokemon: Pokemon;
@@ -66,8 +67,11 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
 
       <Card className='p-5'>
         <CardHeader className='flex flex-col gap-8 sm:flex-row sm:justify-between lg:gap-6'>
-          <h1 className='text-5xl font-bold capitalize'>{pokemon.name}</h1>
+          <h1 className='text-5xl font-bold capitalize'>
+            {separateString(pokemon.name)}
+          </h1>
           <Button
+            data-testid='button-favorite'
             size='md'
             className={`${
               isFavorite
@@ -124,7 +128,7 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
               Sprites:
             </h2>
             {!pokemon.sprites.front_default || !pokemon.sprites.back_default ? (
-              <p className='text-gray-500'>
+              <p className='text-lg text-gray-500'>
                 We are working on the sprites of this pokemon
               </p>
             ) : (
