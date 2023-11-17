@@ -36,6 +36,11 @@ yarn
 yarn dev
 ```
 
+## Run testing
+```sh
+yarn test
+```
+
 ## Technologies
 
 [![ReactJS](https://img.shields.io/static/v1?label=&message=reactjs&color=149ECA&logo=react&logoColor=white&style=for-the-badge)](https://react.dev/)
@@ -45,6 +50,8 @@ yarn dev
 [![TailwindCSS](https://img.shields.io/static/v1?label=&message=TailwindCSS&color=06B6D4&logo=tailwindcss&logoColor=white&style=for-the-badge)](https://tailwindcss.com/)
 [![NextUI](https://img.shields.io/static/v1?label=&message=nextui&color=0d0d0d&logo=nextui&logoColor=white&style=for-the-badge)](https://nextui.org/)
 
+[![Jest](https://img.shields.io/static/v1?label=&message=jest&color=C21325&logo=jest&logoColor=white&style=for-the-badge)](https://jestjs.io/)
+[![React Testing Library](https://img.shields.io/static/v1?label=&message=testing-library&color=E33332&logo=testing-library&logoColor=white&style=for-the-badge)](https://testing-library.com/)
 
 
 ## Author
