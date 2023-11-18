@@ -5,6 +5,7 @@ import { capitalized } from '@/utils/capitalized';
 import { getPokemonInfo } from '@/utils/getPokemonInfo';
 import { PokemonCard } from '@/components/pokemon';
 import { openGraphImage } from '@/app/shared-metadata';
+import { separateString } from '@/utils/separateString';
 
 interface PageProps {
   params: {
@@ -18,14 +19,16 @@ export async function generateMetadata({
   const pokemon = await loadPokemon(params.id);
 
   return {
-    title: capitalized(pokemon.name),
-    description: `Information about ${capitalized(pokemon.name)}`,
+    title: separateString(capitalized(pokemon.name)),
+    description: `Information about ${separateString(
+      capitalized(pokemon.name)
+    )}`,
     keywords: [`pokemon, pokedex, ${pokemon.name}`],
     openGraph: {
       ...openGraphImage,
-      title: capitalized(pokemon.name),
-      description: `Page where you will find info about ${capitalized(
-        pokemon.name
+      title: separateString(capitalized(pokemon.name)),
+      description: `Page where you will find info about ${separateString(
+        capitalized(pokemon.name)
       )}`,
     },
   };
