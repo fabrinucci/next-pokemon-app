@@ -4,6 +4,16 @@ import type {
 } from '@/interfaces/pokemon-list';
 import pokeApi from '@/api/pokeApi';
 import { PokemonList } from '@/components/pokemon';
+import { Metadata } from 'next';
+import { openGraphImage } from './shared-metadata';
+
+export const metadata: Metadata = {
+  openGraph: {
+    ...openGraphImage,
+    title: 'Pokebosti',
+    description: 'Page where you will find all pokemons.',
+  },
+};
 
 const loadPokemons = async () => {
   const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=151');

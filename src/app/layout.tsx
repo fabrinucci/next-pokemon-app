@@ -14,7 +14,7 @@ const mainFont = Lato({
 export const metadata: Metadata = {
   title: {
     default: 'PokeBosti',
-    template: 'PokeBosti | %s ',
+    template: 'PokeBosti | %s',
   },
   description: 'PokeBosti app',
   authors: {
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   keywords: ['pokemon, pokedex, pokebosti'],
   openGraph: {
     ...openGraphImage,
-    title: 'Pokebosti home',
+    title: 'Pokebosti',
     description: 'Page where you will find all pokemons.',
   },
 };
