@@ -1,6 +1,6 @@
 import { separateString } from '@/utils/separateString';
 
-describe('capitalized', () => {
+describe('separateStrings', () => {
   it('should return the text separated with spaces', () => {
     const text = 'iron-leaves';
     const newText = separateString(text);
