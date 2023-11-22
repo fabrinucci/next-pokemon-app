@@ -31,11 +31,11 @@ const loadPokemons = async () => {
 export default async function Home() {
   const pokemons = await loadPokemons();
   return (
-    <div>
+    <section>
       <h1 className='my-[40px] text-center text-5xl font-bold text-purple-400'>
         Pokemon List
       </h1>
       <PokemonList pokemons={pokemons} />
-    </div>
+    </section>
   );
 }
