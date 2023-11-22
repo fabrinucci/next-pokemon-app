@@ -48,8 +48,8 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
   };
 
   return (
-    <div className='grid gap-6 px-6 py-10 md:grid-cols-percentage md:gap-[2%]'>
-      <Card className='min-h-[360px]' isHoverable isPressable>
+    <article className='grid gap-6 px-6 py-10 md:grid-cols-percentage md:gap-[2%]'>
+      <Card as='section' className='min-h-[360px]' isHoverable isPressable>
         <CardBody className='items-center justify-center'>
           <Image
             className='max-w-[180px]'
@@ -65,7 +65,7 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
         </CardBody>
       </Card>
 
-      <Card className='p-5'>
+      <Card as='section' className='p-5'>
         <CardHeader className='flex flex-col gap-8 sm:flex-row sm:justify-between lg:gap-6'>
           <h1 className='text-5xl font-bold capitalize'>
             {separateString(pokemon.name)}
@@ -162,6 +162,6 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
           </div>
         </CardBody>
       </Card>
-    </div>
+    </article>
   );
 };

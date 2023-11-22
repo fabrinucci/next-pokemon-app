@@ -16,6 +16,7 @@ export const PokemonHomeCard = ({ pokemon }: PokemonProps) => {
 
   return (
     <Card
+      as='li'
       data-testid='pokemon-home-card'
       onClick={onPokemonClick}
       isPressable

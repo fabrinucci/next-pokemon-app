@@ -2,7 +2,7 @@
 
 <h1 align="center">Pokemon app 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.1.1-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-1.2.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/fabrinucci/next-pokemon-app#readme" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
@@ -36,9 +36,14 @@ yarn
 yarn dev
 ```
 
-## Run testing
+## Run unit tests
 ```sh
-yarn test
+yarn test:unit
+```
+
+## Run end to end tests
+```sh
+yarn test:e2e
 ```
 
 ## Technologies
@@ -52,6 +57,7 @@ yarn test
 
 [![Jest](https://img.shields.io/static/v1?label=&message=jest&color=C21325&logo=jest&logoColor=white&style=for-the-badge)](https://jestjs.io/)
 [![React Testing Library](https://img.shields.io/static/v1?label=&message=testing-library&color=E33332&logo=testing-library&logoColor=white&style=for-the-badge)](https://testing-library.com/)
+[![Playwright](https://img.shields.io/static/v1?label=&message=playwright&color=2EAD33&logo=playwright&logoColor=white&style=for-the-badge)](https://playwright.dev/)
 
 
 ## Author

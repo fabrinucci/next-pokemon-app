@@ -12,7 +12,7 @@ export const PokemonFavorites = () => {
   }, []);
 
   return (
-    <div>
+    <section>
       {favoritePokemons.length === 0 ? (
         <NoFavorites />
       ) : (
@@ -21,16 +21,16 @@ export const PokemonFavorites = () => {
             Your favorite pokemons
           </h1>
 
-          <div
+          <ul
             data-testid='favorite-cards'
             className='grid grid-cols-auto-fill gap-4 p-6'
           >
             {favoritePokemons.map((pokeId) => (
               <Favorite key={pokeId} pokeId={pokeId} />
             ))}
-          </div>
+          </ul>
         </div>
       )}
-    </div>
+    </section>
   );
 };

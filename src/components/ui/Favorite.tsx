@@ -16,6 +16,7 @@ export const Favorite = ({ pokeId }: FavoriteProps) => {
 
   return (
     <Card
+      as='li'
       data-testid='favorite-card'
       className='flex w-full items-center p-[10px]'
       onClick={onPokemonClick}
