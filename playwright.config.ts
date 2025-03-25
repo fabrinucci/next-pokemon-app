@@ -6,4 +6,10 @@ export default defineConfig({
     baseURL: 'http://localhost:3000/',
   },
   fullyParallel: true,
+  webServer: {
+    command: 'yarn start',
+    url: 'http://localhost:3000',
+    timeout: 120000,
+    reuseExistingServer: !process.env.CI,
+  },
 });
