@@ -22,11 +22,11 @@ jobs:
       with:
         node-version: 18
 
-    - name: Run ESLint
-      run: yarn lint
-
     - name: Install dependencies
       run: yarn install --frozen-lockfile
+
+    - name: Run ESLint
+      run: yarn lint
 
     - name: Run Unit tests
       run: yarn test
