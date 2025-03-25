@@ -29,7 +29,7 @@ jobs:
       run: yarn lint
 
     - name: Run Unit tests
-      run: yarn test
+      run: yarn test:unit
 
     - name: Build application
       run: yarn build
