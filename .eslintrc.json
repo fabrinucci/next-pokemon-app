@@ -2,16 +2,22 @@
   "extends": [
     "next/core-web-vitals"
   ],
-  "plugins": ["testing-library"],
+  "plugins": ["testing-library", "playwright"],
   "overrides": [
     {
       "files": [
-        "**/__tests__/**/*.[jt]s?(x)",
-        "**/?(*.)+(spec|test).[jt]s?(x)"
+        "**/__tests__/unit/**/*.[jt]s?(x)"
       ],
       "extends": [
-        "plugin:testing-library/react",
-        "plugin:playwright/jest-playwrigh"
+        "plugin:testing-library/react"
+      ]
+    },
+    {
+      "files": [
+        "**/__tests__/e2e/**/*.[jt]s?(x)"
+      ],
+      "extends": [
+        "plugin:playwright/recommended"
       ]
     }
   ]
