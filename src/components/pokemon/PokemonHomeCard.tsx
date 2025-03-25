@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { Card, CardBody, CardHeader, Divider, Image } from '@nextui-org/react';
+import { Card, CardBody, CardHeader, Divider, Image } from '@heroui/react';
 import type { SmallPokemon } from '@/interfaces/pokemon-list';
 
 interface PokemonProps {

@@ -7,7 +7,7 @@ import {
   CardBody,
   Image,
   CardHeader,
-} from '@nextui-org/react';
+} from '@heroui/react';
 import confetti from 'canvas-confetti';
 
 import type { Pokemon } from '@/interfaces/pokemon';
