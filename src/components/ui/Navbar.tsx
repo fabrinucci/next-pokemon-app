@@ -1,3 +1,5 @@
+'use client';
+
 import NavLink from 'next/link';
 import { Link, Spacer } from '@heroui/react';
 

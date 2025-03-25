@@ -1,3 +1,5 @@
+'use client';
+
 import { Image } from '@heroui/react';
 
 export const NoFavorites = () => {

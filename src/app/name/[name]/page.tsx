@@ -10,14 +10,13 @@ import { openGraphImage } from '@/app/shared-metadata';
 import { separateString } from '@/utils/separateString';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     name: string;
-  };
+  }>;
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const pokemon = await loadPokemon(params.name);
 
   return {
@@ -50,7 +49,8 @@ const loadPokemon = async (name: string) => {
   return pokemon as Pokemon;
 };
 
-export default async function PokemonPage({ params }: PageProps) {
+export default async function PokemonPage(props: PageProps) {
+  const params = await props.params;
   const pokemon = await loadPokemon(params.name);
   return <PokemonCard pokemon={pokemon} />;
 }
