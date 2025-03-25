@@ -3,6 +3,7 @@ import { Lato } from 'next/font/google';
 import { Navbar } from '@/components/ui';
 import { Providers } from '@/app/providers';
 import { openGraphImage } from '@/app/shared-metadata';
+import { webPage } from '@/utils/links';
 import '@/app/globals.css';
 
 const mainFont = Lato({
@@ -12,6 +13,7 @@ const mainFont = Lato({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(webPage),
   title: {
     default: 'PokeBosti',
     template: 'PokeBosti | %s',

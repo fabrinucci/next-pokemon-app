@@ -6,8 +6,10 @@ import pokeApi from '@/api/pokeApi';
 import { PokemonList } from '@/components/pokemon';
 import { Metadata } from 'next';
 import { openGraphImage } from './shared-metadata';
+import { webPage } from '@/utils/links';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(webPage),
   openGraph: {
     ...openGraphImage,
     title: 'Pokebosti',

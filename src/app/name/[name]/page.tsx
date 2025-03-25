@@ -8,6 +8,7 @@ import { PokemonCard } from '@/components/pokemon';
 import pokeApi from '@/api/pokeApi';
 import { openGraphImage } from '@/app/shared-metadata';
 import { separateString } from '@/utils/separateString';
+import { webPage } from '@/utils/links';
 
 interface PageProps {
   params: Promise<{
@@ -20,6 +21,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const pokemon = await loadPokemon(params.name);
 
   return {
+    metadataBase: new URL(webPage),
     title: separateString(capitalized(pokemon.name)),
     description: `Information about ${separateString(
       capitalized(pokemon.name)
