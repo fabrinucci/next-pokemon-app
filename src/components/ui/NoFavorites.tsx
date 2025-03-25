@@ -1,6 +1,6 @@
 'use client';
 
-import { Image } from '@heroui/react';
+import Image from 'next/image';
 
 export const NoFavorites = () => {
   return (
@@ -11,8 +11,8 @@ export const NoFavorites = () => {
           className='mt-16'
           src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg'
           alt='No favorites'
-          width='100%'
-          height='100%'
+          width={150}
+          height={150}
         />
       </figure>
     </div>

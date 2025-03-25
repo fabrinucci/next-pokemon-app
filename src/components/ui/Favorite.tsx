@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Card, Image } from '@heroui/react';
+import Image from 'next/image';
 
 interface FavoriteProps {
   pokeId: number;
@@ -16,20 +16,18 @@ export const Favorite = ({ pokeId }: FavoriteProps) => {
   };
 
   return (
-    <Card
-      as='li'
+    <li
       data-testid='favorite-card'
-      className='flex w-full items-center p-[10px]'
+      className='flex w-full cursor-pointer items-center rounded-xl bg-zinc-900 p-[10px] transition-colors duration-300 hover:bg-zinc-800'
       onClick={onPokemonClick}
-      isPressable
-      isHoverable
     >
       <Image
         className='h-[200px] w-full p-2'
         src={pokemonImg}
         alt='Pokemon Favorite'
-        width='100%'
+        width={100}
+        height={100}
       />
-    </Card>
+    </li>
   );
 };
