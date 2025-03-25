@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('Test navigation components', async ({ page }) => {
+test('Navigation components', async ({ page }) => {
   await page.goto('/');
 
   const homeLink = page.getByTestId('home-link');
@@ -25,7 +25,7 @@ test('Test navigation components', async ({ page }) => {
   await homeLink.click();
 });
 
-test('Test navigation url', async ({ page }) => {
+test('Navigation url', async ({ page }) => {
   await page.goto('/');
 
   await page.goto('/pokemon/2');
@@ -81,7 +81,7 @@ test('Test navigation url', async ({ page }) => {
       name: 'Pokemon List',
       exact: true,
     })
-  ).not.toBeVisible();
+  ).toBeHidden();
 
   await page.goto('/pokemon/981821');
   await expect(
@@ -108,7 +108,7 @@ test('Test navigation url', async ({ page }) => {
   ).toBeVisible();
 });
 
-test('Test action "Save" or "Remove" to favorites', async ({ page }) => {
+test('Action "Save" or "Remove" to favorites', async ({ page }) => {
   await page.goto('/');
   const favoritesLink = page.getByRole('link', { name: 'Favorites' });
 

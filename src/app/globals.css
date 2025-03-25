@@ -3,7 +3,13 @@
 @tailwind utilities;
 
 @layer base {
-  h1, h2, h3, h4, h5, h6, p {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
     @apply text-white;
   }
 }
@@ -18,5 +24,6 @@
   border: 3px solid transparent;
   background:
     linear-gradient(black, black) padding-box,
-    linear-gradient(112deg, #06b7db -63.59%, #ff4ecd -20.3%, #0072f5 70.46%) border-box;
+    linear-gradient(112deg, #06b7db -63.59%, #ff4ecd -20.3%, #0072f5 70.46%)
+      border-box;
 }

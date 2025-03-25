@@ -1,6 +1,7 @@
 'use client';
+
 import { useRouter } from 'next/navigation';
-import { Card, Image } from '@nextui-org/react';
+import { Card, Image } from '@heroui/react';
 
 interface FavoriteProps {
   pokeId: number;

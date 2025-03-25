@@ -1,4 +1,6 @@
-import { Image } from '@nextui-org/react';
+'use client';
+
+import { Image } from '@heroui/react';
 
 export const NoFavorites = () => {
   return (

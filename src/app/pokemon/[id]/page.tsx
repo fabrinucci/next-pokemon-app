@@ -6,19 +6,20 @@ import { getPokemonInfo } from '@/utils/getPokemonInfo';
 import { PokemonCard } from '@/components/pokemon';
 import { openGraphImage } from '@/app/shared-metadata';
 import { separateString } from '@/utils/separateString';
+import { webPage } from '@/utils/links';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const pokemon = await loadPokemon(params.id);
 
   return {
+    metadataBase: new URL(webPage),
     title: separateString(capitalized(pokemon.name)),
     description: `Information about ${separateString(
       capitalized(pokemon.name)
@@ -47,7 +48,8 @@ const loadPokemon = async (id: string) => {
   return pokemon as Pokemon;
 };
 
-export default async function PokemonPage({ params }: PageProps) {
+export default async function PokemonPage(props: PageProps) {
+  const params = await props.params;
   const pokemon = await loadPokemon(params.id);
   return <PokemonCard pokemon={pokemon} />;
 }

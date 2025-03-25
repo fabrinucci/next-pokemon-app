@@ -1,4 +1,5 @@
 'use client';
+
 import { useState, useEffect } from 'react';
 import {
   Card,
@@ -7,7 +8,7 @@ import {
   CardBody,
   Image,
   CardHeader,
-} from '@nextui-org/react';
+} from '@heroui/react';
 import confetti from 'canvas-confetti';
 
 import type { Pokemon } from '@/interfaces/pokemon';
