@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Card, CardBody, CardHeader, Divider, Image } from '@heroui/react';
+import Image from 'next/image';
 import type { SmallPokemon } from '@/interfaces/pokemon-list';
 
 interface PokemonProps {
@@ -16,27 +16,26 @@ export const PokemonHomeCard = ({ pokemon }: PokemonProps) => {
   };
 
   return (
-    <Card
-      as='li'
+    <li
       data-testid='pokemon-home-card'
+      className='relative cursor-pointer rounded-xl bg-zinc-900 p-[10px] transition-colors duration-300 hover:bg-zinc-800'
       onClick={onPokemonClick}
-      isPressable
-      isHoverable
     >
-      <CardHeader>
+      <div className='after:absolute after:left-0 after:top-12 after:h-[1px] after:w-[100%] after:bg-zinc-500 after:content-[""]'>
         <h3 className='text-base font-semibold capitalize sm:text-xl'>
           #{pokemon.id} {pokemon.name}
         </h3>
-      </CardHeader>
-      <Divider />
-      <CardBody className='flex items-center'>
+      </div>
+      <div></div>
+      <div className='flex items-center px-2 py-6'>
         <Image
-          width='100%'
-          className='h-[150px] w-full p-2'
+          width={150}
+          height={150}
+          className='h-[150px] w-full'
           src={`${pokemon.img}`}
           alt={`${pokemon.name}`}
         />
-      </CardBody>
-    </Card>
+      </div>
+    </li>
   );
 };
