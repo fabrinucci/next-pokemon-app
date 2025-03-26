@@ -59,25 +59,25 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
         </div>
       </section>
 
-      <section className='rounded-xl bg-zinc-900 p-5'>
-        <div className='flex flex-col gap-8 sm:flex-row sm:justify-between lg:gap-6'>
+      <section className='rounded-xl bg-zinc-900 p-8'>
+        <div className='flex flex-col items-center gap-6 sm:flex-row sm:justify-between md:flex-col md:gap-6 lg:flex-row lg:gap-3'>
           <h1 className='text-5xl font-bold capitalize'>
             {separateString(pokemon.name)}
           </h1>
           <button
-            data-testid='button-favorite'
             className={`${
               isFavorite
                 ? 'bg-gradient-to-r from-indigo-500 to-red-500'
                 : 'bg-gradient'
-            } h-[45px] w-[180px] font-semibold`}
+            } h-[50px] w-[190px] rounded-lg font-semibold text-white`}
+            data-testid='button-favorite'
             onClick={handleFavorites}
           >
             {!isFavorite ? 'Save to favorites' : 'Remove from favorites'}
           </button>
         </div>
         <div>
-          <section className='py-4'>
+          <section className='my-8 sm:my-10'>
             <h2 className='mb-6 text-center text-3xl font-semibold sm:text-left'>
               Description:
             </h2>
@@ -121,7 +121,9 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
             </div>
           </section>
 
-          <div className='mt-4'>
+          <div className='relative mt-4'>
+            <div className='after:absolute after:-top-4 after:left-0 after:h-[1px] after:w-[100%] after:bg-zinc-700 after:content-[""]'></div>
+
             <h2 className='mb-6 text-center text-3xl font-semibold sm:text-left'>
               Sprites:
             </h2>
