@@ -37,7 +37,7 @@ export default function RootLayout({
 }) {
   return (
     <html className={`${mainFont.className} dark h-full`} lang='en'>
-      <body className='bg-zinc-950'>
+      <body className='bg-black'>
         <header>
           <Navbar />
         </header>
