@@ -21,7 +21,9 @@ export const PokemonHomeCard = ({ pokemon }: PokemonProps) => {
       className='relative cursor-pointer rounded-xl bg-zinc-900 p-[10px] transition-colors duration-300 hover:bg-zinc-800'
       onClick={onPokemonClick}
     >
-      <div className='after:absolute after:left-0 after:top-12 after:h-[1px] after:w-[100%] after:bg-zinc-500 after:content-[""]'>
+      <div className='after:absolute after:left-0 after:top-12 after:h-[1px] after:w-[100%] after:bg-zinc-700 after:content-[""]'></div>
+
+      <div>
         <h3 className='text-base font-semibold capitalize sm:text-xl'>
           #{pokemon.id} {pokemon.name}
         </h3>
