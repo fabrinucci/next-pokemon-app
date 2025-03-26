@@ -20,7 +20,7 @@ export const Favorite = ({ pokeId }: FavoriteProps) => {
       data-testid='favorite-card'
       className='flex w-full items-center rounded-xl bg-zinc-900 transition-colors duration-300 hover:bg-zinc-800'
     >
-      <button className='p-[10px]' onClick={onPokemonClick}>
+      <button className='h-full w-full p-[10px]' onClick={onPokemonClick}>
         <Image
           className='h-[200px] w-full p-2'
           src={pokemonImg}
