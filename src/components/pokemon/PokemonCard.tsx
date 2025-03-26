@@ -1,14 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import {
-  Card,
-  Divider,
-  Button,
-  CardBody,
-  Image,
-  CardHeader,
-} from '@heroui/react';
+import Image from 'next/image';
 import confetti from 'canvas-confetti';
 
 import type { Pokemon } from '@/interfaces/pokemon';
@@ -50,8 +43,8 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
 
   return (
     <article className='grid gap-6 px-6 py-10 md:grid-cols-percentage md:gap-[2%]'>
-      <Card as='section' className='min-h-[360px]' isHoverable isPressable>
-        <CardBody className='items-center justify-center'>
+      <section className='min-h-[360px] rounded-xl bg-zinc-900'>
+        <div className='flex h-full w-full items-center justify-center'>
           <Image
             className='max-w-[180px]'
             src={
@@ -60,20 +53,19 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
               notFoundImg
             }
             alt={pokemon?.name}
-            width='100%'
-            height='100%'
+            width={300}
+            height={300}
           />
-        </CardBody>
-      </Card>
+        </div>
+      </section>
 
-      <Card as='section' className='p-5'>
-        <CardHeader className='flex flex-col gap-8 sm:flex-row sm:justify-between lg:gap-6'>
+      <section className='rounded-xl bg-zinc-900 p-5'>
+        <div className='flex flex-col gap-8 sm:flex-row sm:justify-between lg:gap-6'>
           <h1 className='text-5xl font-bold capitalize'>
             {separateString(pokemon.name)}
           </h1>
-          <Button
+          <button
             data-testid='button-favorite'
-            size='md'
             className={`${
               isFavorite
                 ? 'bg-gradient-to-r from-indigo-500 to-red-500'
@@ -82,9 +74,9 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
             onClick={handleFavorites}
           >
             {!isFavorite ? 'Save to favorites' : 'Remove from favorites'}
-          </Button>
-        </CardHeader>
-        <CardBody>
+          </button>
+        </div>
+        <div>
           <section className='py-4'>
             <h2 className='mb-6 text-center text-3xl font-semibold sm:text-left'>
               Description:
@@ -94,7 +86,10 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
                 <h3 className='text-2xl font-bold'>Types</h3>
                 <ul className='flex gap-4'>
                   {pokemon.types.map((t, index) => (
-                    <li className='text-lg font-semibold' key={index}>
+                    <li
+                      className='text-lg font-semibold text-white'
+                      key={index}
+                    >
                       {capitalized(t.type.name)}
                     </li>
                   ))}
@@ -104,7 +99,10 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
                 <h3 className='text-2xl font-bold'>Abilities</h3>
                 <ul className='flex flex-wrap gap-4 text-center'>
                   {pokemon.abilities.map((a, index) => (
-                    <li className='text-lg font-semibold' key={index}>
+                    <li
+                      className='text-lg font-semibold text-white'
+                      key={index}
+                    >
                       {separateString(capitalized(a.ability.name))}
                     </li>
                   ))}
@@ -123,7 +121,6 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
             </div>
           </section>
 
-          <Divider />
           <div className='mt-4'>
             <h2 className='mb-6 text-center text-3xl font-semibold sm:text-left'>
               Sprites:
@@ -161,8 +158,8 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
               </div>
             )}
           </div>
-        </CardBody>
-      </Card>
+        </div>
+      </section>
     </article>
   );
 };
