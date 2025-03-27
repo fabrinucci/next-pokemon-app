@@ -1,6 +1,9 @@
 'use client';
 
 import Image from 'next/image';
+import { config } from '@/config/index';
+
+const { DREAM_WORLD_URL } = config;
 
 export const NoFavorites = () => {
   return (
@@ -9,7 +12,7 @@ export const NoFavorites = () => {
       <figure className='opacity-30'>
         <Image
           className='mt-16'
-          src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg'
+          src={`${DREAM_WORLD_URL}/25.svg`}
           alt='No favorites'
           width={150}
           height={150}

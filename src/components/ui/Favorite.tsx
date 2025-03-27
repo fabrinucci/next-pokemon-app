@@ -2,13 +2,15 @@
 
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { config } from '@/config/index';
 
 interface FavoriteProps {
   pokeId: number;
 }
 
+const { ARTWORK_URL } = config;
+
 export const Favorite = ({ pokeId }: FavoriteProps) => {
-  const pokemonImg = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeId}.png`;
   const router = useRouter();
 
   const onPokemonClick = () => {
@@ -23,7 +25,7 @@ export const Favorite = ({ pokeId }: FavoriteProps) => {
       <button className='h-full w-full p-[10px]' onClick={onPokemonClick}>
         <Image
           className='h-[200px] w-full p-2'
-          src={pokemonImg}
+          src={`${ARTWORK_URL}/${pokeId}.png`}
           alt='Pokemon Favorite'
           width={100}
           height={100}

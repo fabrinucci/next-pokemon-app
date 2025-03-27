@@ -2,20 +2,21 @@ import { render, screen } from '@testing-library/react';
 import { PokemonHomeCard } from '@/components/pokemon';
 import { PokemonListResponse, SmallPokemon } from '@/interfaces/pokemon-list';
 import pokeApi from '@/api/pokeApi';
+import { config } from '@/config/index';
+
+const { DREAM_WORLD_URL } = config;
 
 jest.mock('next/navigation', () => require('next-router-mock'));
 
 const loadPokemons = async (pokeId: number) => {
   const { data } = await pokeApi.get<PokemonListResponse>(`/pokemon`);
-  const imgUrl =
-    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world';
 
   const pokemon: SmallPokemon = data.results[pokeId - 1];
 
   const fullPokemon = {
     ...pokemon,
     id: pokeId,
-    img: `${imgUrl}/${pokeId}.svg`,
+    img: `${DREAM_WORLD_URL}/${pokeId}.svg`,
   };
 
   return fullPokemon;
