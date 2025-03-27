@@ -8,6 +8,7 @@ import type { Pokemon } from '@/interfaces/pokemon';
 import localFavorites from '@/utils/localFavorites';
 import { capitalized } from '@/utils/capitalized';
 import { separateString } from '@/utils/separateString';
+import { PrimaryButton, SecondaryButton } from '../buttons';
 
 interface PokemonCardProps {
   pokemon: Pokemon;
@@ -64,17 +65,22 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
           <h1 className='text-5xl font-bold capitalize'>
             {separateString(pokemon.name)}
           </h1>
-          <button
-            className={`${
-              isFavorite
-                ? 'bg-gradient-to-r from-indigo-500 to-red-500'
-                : 'bg-gradient'
-            } h-[50px] w-[190px] rounded-lg font-semibold text-white`}
-            data-testid='button-favorite'
-            onClick={handleFavorites}
-          >
-            {!isFavorite ? 'Save to favorites' : 'Remove from favorites'}
-          </button>
+
+          {!isFavorite ? (
+            <PrimaryButton
+              data-testid='button-favorite'
+              onClick={handleFavorites}
+            >
+              Save to favorites
+            </PrimaryButton>
+          ) : (
+            <SecondaryButton
+              data-testid='button-favorite'
+              onClick={handleFavorites}
+            >
+              Remove from favorites
+            </SecondaryButton>
+          )}
         </div>
         <div>
           <section className='my-8 sm:my-10'>
