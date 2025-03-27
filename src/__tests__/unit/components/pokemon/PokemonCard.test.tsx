@@ -58,7 +58,7 @@ describe('PokemonCard', () => {
     render(<PokemonCard pokemon={pokemon as Pokemon} />);
 
     const buttonFavorite = screen.getByTestId('button-favorite');
-    expect(buttonFavorite.innerHTML).toBe('Remove from favorites');
+    expect(buttonFavorite.textContent).toBe('Remove from favorites');
   });
 
   it('should display the button with text "Save to favorites" if the pokemon is not favorite', async () => {
@@ -67,7 +67,7 @@ describe('PokemonCard', () => {
     render(<PokemonCard pokemon={pokemon as Pokemon} />);
 
     const buttonFavorite = screen.getByTestId('button-favorite');
-    expect(buttonFavorite.innerHTML).toBe('Save to favorites');
+    expect(buttonFavorite.textContent).toBe('Save to favorites');
   });
 
   it('should change the text when the button is clicked', async () => {

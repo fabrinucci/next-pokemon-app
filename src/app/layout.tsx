@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Lato } from 'next/font/google';
 import { Navbar } from '@/components/ui';
-import { Providers } from '@/app/providers';
 import { openGraphImage } from '@/app/shared-metadata';
 import { webPage } from '@/utils/links';
 import '@/app/globals.css';
@@ -37,14 +36,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html className={`${mainFont.className} h-full dark`} lang='en'>
-      <body>
-        <Providers>
-          <header>
-            <Navbar />
-          </header>
-          <main>{children}</main>
-        </Providers>
+    <html className={`${mainFont.className} dark h-full`} lang='en'>
+      <body className='bg-black'>
+        <header>
+          <Navbar />
+        </header>
+        <main>{children}</main>
       </body>
     </html>
   );
