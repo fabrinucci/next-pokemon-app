@@ -22,9 +22,10 @@
     "paths": {
       "@/api/*": ["api/*"],
       "@/app/*": ["app/*"],
+      "@/components/*": ["components/*"],
+      "@/config/*": ["config/*"],
       "@/interfaces/*": ["interfaces/*"],
       "@/utils/*": ["utils/*"],
-      "@/components/*": ["components/*"],
     },
     "types": ["@testing-library/jest-dom"]
   },
