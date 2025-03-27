@@ -2,13 +2,13 @@
 
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { config } from '@/config/index';
+import { urlConfig } from '@/config/urlConfig';
 
 interface FavoriteProps {
   pokeId: number;
 }
 
-const { ARTWORK_URL } = config;
+const { ARTWORK_URL } = urlConfig;
 
 export const Favorite = ({ pokeId }: FavoriteProps) => {
   const router = useRouter();

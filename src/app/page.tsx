@@ -7,9 +7,9 @@ import pokeApi from '@/api/pokeApi';
 import { PokemonList } from '@/components/pokemon';
 import { openGraphImage } from './shared-metadata';
 import { webPage } from '@/utils/links';
-import { config } from '@/config/index';
+import { urlConfig } from '@/config/urlConfig';
 
-const { DREAM_WORLD_URL } = config;
+const { DREAM_WORLD_URL } = urlConfig;
 
 export const metadata: Metadata = {
   metadataBase: new URL(webPage),

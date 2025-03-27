@@ -2,9 +2,9 @@ import { render, screen } from '@testing-library/react';
 import { PokemonHomeCard } from '@/components/pokemon';
 import { PokemonListResponse, SmallPokemon } from '@/interfaces/pokemon-list';
 import pokeApi from '@/api/pokeApi';
-import { config } from '@/config/index';
+import { urlConfig } from '@/config/urlConfig';
 
-const { DREAM_WORLD_URL } = config;
+const { DREAM_WORLD_URL } = urlConfig;
 
 jest.mock('next/navigation', () => require('next-router-mock'));
 

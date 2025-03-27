@@ -1,9 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { config } from '@/config/index';
+import { urlConfig } from '@/config/urlConfig';
 
-const { DREAM_WORLD_URL } = config;
+const { DREAM_WORLD_URL } = urlConfig;
 
 export const NoFavorites = () => {
   return (
