@@ -6,7 +6,7 @@ test('Navigation components', async ({ page }) => {
   const homeLink = page.getByTestId('home-link');
   const favoritesLink = page.getByRole('link', { name: 'Favorites' });
 
-  const bulbasaur = page.getByRole('button', {
+  const bulbasaur = page.getByRole('link', {
     name: '#1 bulbasaur',
   });
   await bulbasaur.click();
@@ -100,11 +100,16 @@ test('Navigation url', async ({ page }) => {
   ).toBeVisible();
 
   await page.goto('/anything');
+  await expect(page.getByRole('heading', { name: 'Ups!' })).toBeVisible();
+  await expect(page.getByText('We can not find the page you')).toBeVisible();
   await expect(
-    page.getByRole('heading', {
-      name: '404',
-      exact: true,
-    })
+    page.getByRole('img', { name: 'Not found image' })
+  ).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Return home' })).toBeVisible();
+
+  await page.getByRole('link', { name: 'Return home' }).click();
+  await expect(
+    page.getByRole('heading', { name: 'Pokemon List' })
   ).toBeVisible();
 });
 
