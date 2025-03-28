@@ -35,4 +35,14 @@ describe('PokemonHomeCard', () => {
     expect(img).toHaveAttribute('alt', 'bulbasaur');
     expect(name).toBeInTheDocument();
   });
+
+  it('should display a link and have the correct href', async () => {
+    const pokemon: SmallPokemon = await loadPokemons(1);
+    render(<PokemonHomeCard pokemon={pokemon} />);
+
+    const link = screen.getByRole('link');
+
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute('href', '/name/bulbasaur');
+  });
 });

@@ -10,9 +10,9 @@ describe('Favorite', () => {
     expect(card).toBeInTheDocument();
   });
 
-  it('Should the card have a button', () => {
+  it('Should the card have a link to the pokemon', () => {
     render(<Favorite pokeId={1} />);
-    const button = screen.getByRole('button');
-    expect(button).toBeInTheDocument();
+    const link = screen.getByRole('link');
+    expect(link).toBeInTheDocument();
   });
 });
