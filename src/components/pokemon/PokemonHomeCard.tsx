@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import type { SmallPokemon } from '@/interfaces/pokemon-list';
+import type { SmallPokemonComplete } from '@/interfaces/pokemon-list';
 
 interface PokemonProps {
-  pokemon: SmallPokemon;
+  pokemon: SmallPokemonComplete;
 }
 
 export const PokemonHomeCard = ({ pokemon }: PokemonProps) => {
@@ -28,6 +28,7 @@ export const PokemonHomeCard = ({ pokemon }: PokemonProps) => {
             className='h-[150px] w-full'
             src={`${pokemon.img}`}
             alt={`${pokemon.name}`}
+            priority
           />
         </div>
       </Link>

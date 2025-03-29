@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import type {
   PokemonListResponse,
   SmallPokemon,
+  SmallPokemonComplete,
 } from '@/interfaces/pokemon-list';
 import pokeApi from '@/api/pokeApi';
 import { PokemonList } from '@/components/pokemon';
@@ -27,7 +28,7 @@ const loadPokemons = async () => {
     id: index + 1,
     img: `${DREAM_WORLD_URL}/${index + 1}.svg`,
   }));
-  return pokemons;
+  return pokemons as SmallPokemonComplete[];
 };
 
 export default async function Home() {

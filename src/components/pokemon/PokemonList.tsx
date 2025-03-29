@@ -1,8 +1,8 @@
-import type { SmallPokemon } from '@/interfaces/pokemon-list';
+import type { SmallPokemonComplete } from '@/interfaces/pokemon-list';
 import { PokemonHomeCard } from './';
 
 interface PokemonListProps {
-  pokemons: SmallPokemon[];
+  pokemons: SmallPokemonComplete[];
 }
 
 export const PokemonList = ({ pokemons }: PokemonListProps) => {
