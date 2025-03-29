@@ -1,8 +1,22 @@
-import { FormEvent } from 'react';
+'use client';
+
+import { type ChangeEvent, type FormEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export const SearchBar = () => {
+  const [query, setQuery] = useState('');
+
+  const router = useRouter();
+
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (query.trim().length === 0) return;
+
+    router.push(`/search?query=${query}`);
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
   };
 
   return (
@@ -13,9 +27,11 @@ export const SearchBar = () => {
       <label className='sr-only'>Search</label>
       <div className='relative w-full'>
         <input
+          onChange={handleChange}
           type='text'
           className='block w-full rounded-md border border-gray-200 bg-gray-600 p-2.5 text-white placeholder:text-gray-200 focus:outline-4 focus:outline-violet-500'
           placeholder='Search pokemon'
+          value={query}
           required
         />
       </div>
