@@ -1,7 +1,7 @@
 'use client';
 
 import NavLink from 'next/link';
-import { SearchBar } from '@/app/search';
+import { SearchBar } from '@/components/ui';
 
 export const Navbar = () => {
   return (
