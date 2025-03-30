@@ -1,23 +1,42 @@
 import { render, screen } from '@testing-library/react';
 import HomePage from '@/app/page';
+import pokeApi from '@/api/pokeApi';
 
 jest.mock('next/navigation', () => require('next-router-mock'));
 
+jest.mock('../../../components/pokemon', () => ({
+  PokemonList: jest.fn(() => (
+    <div data-testid='pokemon-list'>PokemonList component</div>
+  )),
+}));
+
+jest.mock('../../../api/pokeApi');
+
 describe('HomePage', () => {
-  it('should display the title', async () => {
+  const mockPokemons = [
+    {
+      id: 1,
+      name: 'bulbasaur',
+    },
+    {
+      id: 2,
+      name: 'ivysaur',
+    },
+  ];
+
+  it('Should render title and PokemonList', async () => {
+    (pokeApi.get as jest.Mock).mockResolvedValue({
+      data: { results: mockPokemons },
+    });
     render(await HomePage());
 
-    const title = screen.getByText('Pokemon List');
-    expect(title).toBeInTheDocument();
+    expect(screen.getByText('Pokemon List')).toBeInTheDocument();
+    expect(screen.getByTestId('pokemon-list')).toBeInTheDocument();
   });
 
-  it('should display a list of 151 pokemons', async () => {
-    render(await HomePage());
+  it('Should handle errors in Pokemon loading', async () => {
+    (pokeApi.get as jest.Mock).mockRejectedValue(new Error('API Error'));
 
-    const list = screen.getByTestId('pokemon-list');
-    const card = screen.getAllByTestId('pokemon-home-card');
-
-    expect(list).toBeInTheDocument();
-    expect(card.length).toBe(151);
+    await expect(HomePage()).rejects.toThrow('API Error');
   });
 });
