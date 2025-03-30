@@ -47,12 +47,14 @@ export async function generateStaticParams() {
 
 const loadPokemon = async (name: string) => {
   const pokemon = await getPokemonInfo(name);
-  if (!pokemon) return redirect('/');
   return pokemon as Pokemon;
 };
 
 export default async function PokemonPage(props: PageProps) {
   const params = await props.params;
   const pokemon = await loadPokemon(params.name);
+
+  if (!pokemon) return redirect('/');
+
   return <PokemonCard pokemon={pokemon} />;
 }
