@@ -1,48 +1,49 @@
 import PokemonById from '@/app/pokemon/[id]/page';
+import { getPokemonInfo } from '@/utils/getPokemonInfo';
 import { render, screen } from '@testing-library/react';
 
-jest.mock('next/navigation', () => require('next-router-mock'));
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(),
+  redirect: jest.fn(),
+}));
+
+jest.mock('../../../utils/getPokemonInfo');
+
+jest.mock('../../../components/pokemon', () => ({
+  PokemonCard: jest.fn(() => <div data-testid='pokemon-card'>Mocked Card</div>),
+}));
 
 describe('PokemonById', () => {
-  it('should display the image and title', async () => {
-    const params = {
-      id: '10',
-    };
-    render(await PokemonById({ params }));
+  const mockPokemon = {
+    name: 'pikachu',
+    id: 25,
+    sprites: { front_default: 'pikachu.png' },
+  };
 
-    const img = screen.getByAltText('caterpie');
-    const title = screen.getByRole('heading', {
-      name: /caterpie/i,
-    });
-
-    expect(img).toHaveAttribute('alt', 'caterpie');
-    expect(title).toBeInTheDocument();
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
-  it('should display the pokemon if the id is higher than 151', async () => {
-    const params = {
-      id: '500',
-    };
-    render(await PokemonById({ params }));
-    const title = screen.getByRole('heading', {
-      name: /emboar/i,
-    });
+  it('Should redirect to "/" if it is not a valid Pokemon', async () => {
+    (getPokemonInfo as jest.Mock).mockResolvedValue(null);
 
-    expect(title).toBeInTheDocument();
-    expect(title.innerHTML).toBe('emboar');
+    const { redirect } = require('next/navigation');
+    await PokemonById({ params: Promise.resolve({ id: 'anything' }) });
+    expect(redirect).toHaveBeenCalledWith('/');
   });
 
-  it('should display the image and title if it receives a name', async () => {
-    const params = {
-      id: 'pikachu',
-    };
-    render(await PokemonById({ params }));
+  it('Should render the Pokemon correctly', async () => {
+    (getPokemonInfo as jest.Mock).mockResolvedValue(mockPokemon);
 
-    const title = screen.getByRole('heading', {
-      name: /pikachu/i,
-    });
+    render(await PokemonById({ params: Promise.resolve({ id: '25' }) }));
+    expect(screen.getByTestId('pokemon-card')).toBeInTheDocument();
+  });
 
-    expect(title).toBeInTheDocument();
-    expect(title.innerHTML).toBe('pikachu');
+  it('Should handle errors in Pokemon loading', async () => {
+    (getPokemonInfo as jest.Mock).mockRejectedValue(new Error('API Error'));
+
+    await expect(
+      PokemonById({ params: Promise.resolve({ id: '25' }) })
+    ).rejects.toThrow('API Error');
   });
 });
