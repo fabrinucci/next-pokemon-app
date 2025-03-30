@@ -4,7 +4,7 @@ import NotFound from '@/app/not-found';
 jest.mock('next/navigation', () => require('next-router-mock'));
 
 describe('NotFound', () => {
-  it('should display the title', () => {
+  it('Should display the correct info', () => {
     render(<NotFound />);
 
     const title = screen.getByRole('heading');
