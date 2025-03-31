@@ -36,23 +36,7 @@ test('Navigation url', async ({ page }) => {
     })
   ).toBeVisible();
 
-  await page.goto('/pokemon/200');
-  await expect(
-    page.getByRole('heading', {
-      name: 'misdreavus',
-      exact: true,
-    })
-  ).toBeVisible();
-
-  await page.goto('/name/charmander');
-  await expect(
-    page.getByRole('heading', {
-      name: 'charmander',
-      exact: true,
-    })
-  ).toBeVisible();
-
-  await page.goto('/name/sylveon');
+  await page.goto('/pokemon/sylveon');
   await expect(
     page.getByRole('heading', {
       name: 'sylveon',
@@ -68,7 +52,7 @@ test('Navigation url', async ({ page }) => {
     })
   ).toBeVisible();
 
-  await page.goto('/name/500');
+  await page.goto('/pokemon/500');
   await expect(
     page.getByRole('heading', {
       name: 'emboar',
@@ -91,7 +75,7 @@ test('Navigation url', async ({ page }) => {
     })
   ).toBeVisible();
 
-  await page.goto('/name/anything');
+  await page.goto('/pokemon/anything');
   await expect(
     page.getByRole('heading', {
       name: 'Pokemon List',
@@ -125,9 +109,9 @@ test('Action "Save" or "Remove" to favorites', async ({ page }) => {
   await expect(page.getByRole('img', { name: 'No favorites' })).toBeVisible();
 
   // save to favorites
-  await page.goto('/name/bulbasaur');
+  await page.goto('/pokemon/bulbasaur');
   await page.getByRole('button', { name: 'Save to favorites' }).click();
-  await page.goto('/name/charmander');
+  await page.goto('/pokemon/charmander');
   await page.getByRole('button', { name: 'Save to favorites' }).click();
   await page.goto('/pokemon/150');
   await page.getByRole('button', { name: 'Save to favorites' }).click();
