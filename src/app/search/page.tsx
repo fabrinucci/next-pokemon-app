@@ -10,13 +10,14 @@ import { PokemonList } from '@/components/pokemon';
 
 import { urlConfig } from '@/config/urlConfig';
 
-const { DREAM_WORLD_URL } = urlConfig;
-
 interface PageProps {
   searchParams: Promise<{
     query: string;
   }>;
 }
+
+const { DREAM_WORLD_URL, ARTWORK_URL } = urlConfig;
+const notFoundImg = '/img/not_found_img.webp';
 
 const loadPokemons = async ({ query }: { query: string }) => {
   const { data } = await pokeApi.get<PokemonListResponse>(
@@ -27,15 +28,28 @@ const loadPokemons = async ({ query }: { query: string }) => {
     poke.name.includes(query.toLowerCase())
   );
 
-  const pokemons: SmallPokemon[] = filterPokemons.map((pokemon) => {
-    const id = pokemon.url.split('/').filter(Boolean).pop();
+  const pokemons: SmallPokemon[] = await Promise.all(
+    filterPokemons.map(async (pokemon) => {
+      const id = pokemon.url.split('/').filter(Boolean).pop();
+      const dreamImg = `${DREAM_WORLD_URL}/${id}.svg`;
+      const artImg = `${ARTWORK_URL}/${id}.png`;
 
-    return {
-      ...pokemon,
-      id,
-      img: `${DREAM_WORLD_URL}/${id}.svg`,
-    };
-  });
+      const resDreamImg = await fetch(dreamImg);
+      const resArtImg = await fetch(artImg);
+
+      const validImage = resDreamImg.ok
+        ? dreamImg
+        : resArtImg.ok
+          ? artImg
+          : notFoundImg;
+
+      return {
+        ...pokemon,
+        id,
+        img: validImage,
+      };
+    })
+  );
 
   return pokemons as SmallPokemonComplete[];
 };
