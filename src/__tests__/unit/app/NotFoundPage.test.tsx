@@ -7,20 +7,20 @@ describe('NotFound', () => {
   it('Should display the correct info', () => {
     render(<NotFound />);
 
-    const title = screen.getByRole('heading');
-    const p = screen.getByRole('paragraph');
+    expect(screen.getByText('Ups!')).toBeInTheDocument();
+    expect(
+      screen.getByText('We can not find the page you are looking for')
+    ).toBeInTheDocument();
+    expect(screen.getByAltText('Not found image')).toBeInTheDocument();
+  });
+
+  it('Should have the correct href', () => {
+    render(<NotFound />);
+
     const linkToHome = screen.getByRole('link');
 
-    expect(title).toBeInTheDocument();
-    expect(p).toBeInTheDocument();
     expect(linkToHome).toBeInTheDocument();
-    expect(screen.getByAltText('Not found image')).toBeInTheDocument();
-
-    expect(title).toHaveTextContent(/Ups!/i);
-    expect(p).toHaveTextContent(
-      /We can not find the page you are looking for/i
-    );
-
     expect(linkToHome).toHaveTextContent(/Return home/i);
+    expect(linkToHome).toHaveAttribute('href', '/');
   });
 });
