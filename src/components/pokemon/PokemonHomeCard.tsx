@@ -12,7 +12,7 @@ export const PokemonHomeCard = ({ pokemon }: PokemonProps) => {
       data-testid='pokemon-home-card'
       className='relative rounded-xl bg-zinc-900 transition-colors duration-300 hover:bg-zinc-800'
     >
-      <Link href={`/name/${pokemon.name}`} className='h-full w-full'>
+      <Link href={`/pokemon/${pokemon.name}`} className='h-full w-full'>
         <div className='p-2.5'>
           <h3 className='text-left text-base font-semibold capitalize sm:text-xl'>
             #{pokemon.id} {pokemon.name}
