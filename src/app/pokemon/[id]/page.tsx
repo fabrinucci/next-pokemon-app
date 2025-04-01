@@ -35,13 +35,6 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   };
 }
 
-export async function generateStaticParams() {
-  const allPokemons: string[] = [...Array(151)].map(
-    (_, index) => `${index + 1}`
-  );
-  return allPokemons.map((id) => ({ id }));
-}
-
 const loadPokemon = async (id: string) => {
   const pokemon = await getPokemonInfo(id);
   return pokemon as Pokemon;
