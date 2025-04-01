@@ -9,6 +9,9 @@ import pokeApi from '@/api/pokeApi';
 import { PokemonList } from '@/components/pokemon';
 
 import { urlConfig } from '@/config/urlConfig';
+import { Metadata } from 'next';
+import { webPage } from '@/utils/links';
+import { openGraphImage } from '../shared-metadata';
 
 interface PageProps {
   searchParams: Promise<{
@@ -18,6 +21,21 @@ interface PageProps {
 
 const { DREAM_WORLD_URL, ARTWORK_URL } = urlConfig;
 const notFoundImg = '/img/not_found_img.webp';
+
+export function generateMetadata(): Metadata {
+  return {
+    metadataBase: new URL(webPage),
+    title: 'Search',
+    description: `Page where you will find the pokemons that match your search`,
+    keywords: ['pokemon, pokedex', 'search'],
+    openGraph: {
+      ...openGraphImage,
+      title: 'Search',
+      description:
+        'Page where you will find the pokemons that match your search',
+    },
+  };
+}
 
 const loadPokemons = async ({ query }: { query: string }) => {
   const { data } = await pokeApi.get<PokemonListResponse>(
