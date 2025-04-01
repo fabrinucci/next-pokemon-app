@@ -35,21 +35,16 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   };
 }
 
-export async function generateStaticParams() {
-  const allPokemons: string[] = [...Array(151)].map(
-    (_, index) => `${index + 1}`
-  );
-  return allPokemons.map((id) => ({ id }));
-}
-
 const loadPokemon = async (id: string) => {
   const pokemon = await getPokemonInfo(id);
-  if (!pokemon) return redirect('/');
   return pokemon as Pokemon;
 };
 
 export default async function PokemonPage(props: PageProps) {
   const params = await props.params;
   const pokemon = await loadPokemon(params.id);
+
+  if (!pokemon) return redirect('/');
+
   return <PokemonCard pokemon={pokemon} />;
 }

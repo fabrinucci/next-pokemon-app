@@ -1,112 +1,101 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { PokemonCard } from '@/components/pokemon';
 import { Pokemon } from '@/interfaces/pokemon';
-import { getPokemonInfo } from '@/utils/getPokemonInfo';
+import localFavorites from '@/utils/localFavorites';
+
+jest.mock('canvas-confetti', () => jest.fn());
+jest.mock('../../../../utils/localFavorites', () => ({
+  existInFavorites: jest.fn(),
+  toggleFavorites: jest.fn(),
+}));
 
 describe('PokemonCard', () => {
-  it('should display the image and title by id', async () => {
-    const pokemon = await getPokemonInfo('1');
-    render(<PokemonCard pokemon={pokemon as Pokemon} />);
+  const mockPokemon = {
+    id: 25,
+    name: 'pikachu',
+    height: 4,
+    weight: 60,
+    types: [{ type: { name: 'electric' } }],
+    abilities: [{ ability: { name: 'static' } }],
+    sprites: {
+      other: {
+        dream_world: { front_default: 'https://example.com/pikachu.svg' },
+        'official-artwork': { front_default: '' },
+      },
+      front_default: 'https://example.com/pikachu-front.svg',
+      back_default: 'https://example.com/pikachu-back.svg',
+      front_shiny: 'https://example.com/pikachu-front-shiny.svg',
+      back_shiny: 'https://example.com/pikachu-back-shiny.svg',
+    },
+  };
 
-    const img = screen.getByAltText(pokemon?.name!);
-    const title = screen.getByRole('heading', {
-      name: pokemon?.name,
-    });
-
-    expect(img).toHaveAttribute('alt', 'bulbasaur');
-    expect(title).toBeInTheDocument();
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
-  it('should display the image and title by name', async () => {
-    const pokemon = await getPokemonInfo('pikachu');
-    render(<PokemonCard pokemon={pokemon as Pokemon} />);
+  it('Should display the pokemon name', async () => {
+    render(<PokemonCard pokemon={mockPokemon as Pokemon} />);
 
-    const img = screen.getByAltText(pokemon?.name!);
-    const title = screen.getByRole('heading', {
-      name: pokemon?.name,
-    });
+    expect(screen.getByText('pikachu')).toBeInTheDocument();
+  });
 
+  it('Should display the pokemon image', async () => {
+    render(<PokemonCard pokemon={mockPokemon as Pokemon} />);
+
+    const img = screen.getByAltText('pikachu');
+
+    expect(img).toHaveAttribute('src', 'https://example.com/pikachu.svg');
     expect(img).toHaveAttribute('alt', 'pikachu');
-    expect(title.innerHTML).toBe('pikachu');
   });
 
-  it('should display the pokemon if the id is higher than 151', async () => {
-    const pokemon = await getPokemonInfo('360');
-
-    render(<PokemonCard pokemon={pokemon as Pokemon} />);
-    const title = screen.getByRole('heading', {
-      name: pokemon?.name,
-    });
-
-    expect(title).toBeInTheDocument();
-    expect(title.innerHTML).toBe(pokemon?.name);
+  it('Should render types and abilities', () => {
+    render(<PokemonCard pokemon={mockPokemon as Pokemon} />);
+    expect(screen.getByText('Electric')).toBeInTheDocument();
+    expect(screen.getByText('Static')).toBeInTheDocument();
   });
 
-  it('should display the pokemon if the name is one above 151', async () => {
-    const pokemon = await getPokemonInfo('axew');
-    render(<PokemonCard pokemon={pokemon as Pokemon} />);
-
-    const title = screen.getByText(pokemon?.name!);
-    expect(title).toBeInTheDocument();
-    expect(title.innerHTML).toBe('axew');
+  it('Should render height and weight', () => {
+    render(<PokemonCard pokemon={mockPokemon as Pokemon} />);
+    expect(screen.getByText('0.4 m')).toBeInTheDocument();
+    expect(screen.getByText('6 kg')).toBeInTheDocument();
   });
 
-  it('should display the button with text "Remove from favorites" if the pokemon is favorite', async () => {
-    localStorage.setItem('favorites', JSON.stringify([1]));
-    const pokemon = await getPokemonInfo('1');
-    render(<PokemonCard pokemon={pokemon as Pokemon} />);
-
-    const buttonFavorite = screen.getByTestId('button-favorite');
-    expect(buttonFavorite.textContent).toBe('Remove from favorites');
+  it('Should render correct button when pokemon is not in favorites', () => {
+    (localFavorites.existInFavorites as jest.Mock).mockReturnValueOnce(false);
+    render(<PokemonCard pokemon={mockPokemon as Pokemon} />);
+    expect(screen.getByText('Save to favorites')).toBeInTheDocument();
   });
 
-  it('should display the button with text "Save to favorites" if the pokemon is not favorite', async () => {
-    localStorage.setItem('favorites', JSON.stringify([2, 4]));
-    const pokemon = await getPokemonInfo('1');
-    render(<PokemonCard pokemon={pokemon as Pokemon} />);
-
-    const buttonFavorite = screen.getByTestId('button-favorite');
-    expect(buttonFavorite.textContent).toBe('Save to favorites');
+  it('Should render correct button when pokemon is in favorites', () => {
+    (localFavorites.existInFavorites as jest.Mock).mockReturnValueOnce(true);
+    render(<PokemonCard pokemon={mockPokemon as Pokemon} />);
+    expect(screen.getByText('Remove from favorites')).toBeInTheDocument();
   });
 
-  it('should change the text when the button is clicked', async () => {
-    localStorage.setItem('favorites', JSON.stringify([1]));
-    const pokemon = await getPokemonInfo('1');
-    render(<PokemonCard pokemon={pokemon as Pokemon} />);
+  it('Should toggle favorite state when button is clicked', () => {
+    (localFavorites.existInFavorites as jest.Mock).mockReturnValueOnce(false);
+    render(<PokemonCard pokemon={mockPokemon as Pokemon} />);
 
-    let buttonFavorite = screen.getByRole('button', {
-      name: 'Remove from favorites',
-    });
-    expect(buttonFavorite).toBeInTheDocument();
+    const button = screen.getByTestId('button-favorite');
+    fireEvent.click(button);
 
-    await userEvent.click(buttonFavorite);
-    buttonFavorite = screen.getByRole('button', {
-      name: 'Save to favorites',
-    });
-
-    expect(buttonFavorite).toBeInTheDocument();
+    expect(localFavorites.toggleFavorites).toHaveBeenCalledWith(25);
   });
 
-  it('should display the correct amount of sprites', async () => {
-    const pokemon = await getPokemonInfo('4');
-    render(<PokemonCard pokemon={pokemon as Pokemon} />);
-
-    const sprites = screen.getAllByAltText(`${pokemon?.name} sprite`);
-    expect(sprites.length).toBe(4);
+  it('Should render sprites if available', () => {
+    render(<PokemonCard pokemon={mockPokemon as Pokemon} />);
+    expect(screen.getAllByAltText('pikachu sprite')).toHaveLength(4);
   });
 
-  it('should display "We are working on the sprites of this pokemon" if there are no sprites', async () => {
-    const pokemon = await getPokemonInfo('1000');
-    render(<PokemonCard pokemon={pokemon as Pokemon} />);
-
-    const sprites = screen.queryByAltText(`${pokemon?.name} sprite`);
-    expect(sprites).toBe(null);
-
-    const spritesMsg = screen.getByText(
-      'We are working on the sprites of this pokemon'
-    );
-
-    expect(spritesMsg).toBeInTheDocument();
+  it('Should display a fallback message when sprites are missing', () => {
+    const pokemonWithoutSprites: unknown = {
+      ...mockPokemon,
+      sprites: { front_default: null, back_default: null },
+    };
+    render(<PokemonCard pokemon={pokemonWithoutSprites as Pokemon} />);
+    expect(
+      screen.getByText('We are working on the sprites of this pokemon')
+    ).toBeInTheDocument();
   });
 });

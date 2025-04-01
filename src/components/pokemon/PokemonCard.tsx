@@ -14,7 +14,7 @@ interface PokemonCardProps {
   pokemon: Pokemon;
 }
 
-const notFoundImg = '/img/not_found.jpg';
+const notFoundImg = '/img/not_found_img.webp';
 
 export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
   const [isFavorite, setIsFavorite] = useState(false);

@@ -1,37 +1,30 @@
 import { render, screen } from '@testing-library/react';
 import { PokemonHomeCard } from '@/components/pokemon';
-import { PokemonListResponse, SmallPokemon } from '@/interfaces/pokemon-list';
-import pokeApi from '@/api/pokeApi';
 
 jest.mock('next/navigation', () => require('next-router-mock'));
 
-const loadPokemons = async (pokeId: number) => {
-  const { data } = await pokeApi.get<PokemonListResponse>(`/pokemon`);
-  const imgUrl =
-    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world';
-
-  const pokemon: SmallPokemon = data.results[pokeId - 1];
-
-  const fullPokemon = {
-    ...pokemon,
-    id: pokeId,
-    img: `${imgUrl}/${pokeId}.svg`,
+describe('PokemonHomeCard', () => {
+  const mockPokemon = {
+    id: 1,
+    name: 'bulbasaur',
+    img: 'https://pokemon/bulbasaur.svg',
+    url: 'https://pokemon/bulbasaur.com',
   };
 
-  return fullPokemon;
-};
-
-describe('PokemonHomeCard', () => {
-  it('should display the image and name of the pokemon', async () => {
-    const pokemon: SmallPokemon = await loadPokemons(1);
-    render(<PokemonHomeCard pokemon={pokemon} />);
+  it('Should display the image and name of the pokemon', async () => {
+    render(<PokemonHomeCard pokemon={mockPokemon} />);
 
     const img = screen.getByRole('img');
-    const name = screen.getByRole('heading', {
-      name: `#${pokemon.id} ${pokemon.name}`,
-    });
 
+    expect(screen.getByText('#1 bulbasaur')).toBeInTheDocument();
     expect(img).toHaveAttribute('alt', 'bulbasaur');
-    expect(name).toBeInTheDocument();
+    expect(img).toHaveAttribute('src', mockPokemon.img);
+  });
+
+  it('Should have the correct href', async () => {
+    render(<PokemonHomeCard pokemon={mockPokemon} />);
+
+    const link = screen.getByRole('link');
+    expect(link).toHaveAttribute('href', '/pokemon/bulbasaur');
   });
 });
