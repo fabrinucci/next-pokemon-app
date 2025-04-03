@@ -49,8 +49,8 @@ test.describe.parallel('Navigation tests', () => {
       page.getByRole('link', { name: '#10 caterpie caterpie' })
     ).toBeVisible();
     await expect(
-      page.getByRole('link', { name: '#151 mew mew' })
-    ).toBeVisible();
+      page.getByRole('link', { name: '#21 spearow spearow' })
+    ).toBeHidden();
   });
 
   test('Navigation pokemon card', async ({ page }) => {

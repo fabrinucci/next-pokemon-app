@@ -4,11 +4,11 @@ test.describe.parallel('Search tests', () => {
   test('Show pokemoms when the query matches one of them', async ({ page }) => {
     await page.goto('/');
     await page.getByRole('textbox', { name: 'Search pokemon' }).click();
-    await page.getByRole('textbox', { name: 'Search pokemon' }).fill('char');
+    await page.getByRole('textbox', { name: 'Search pokemon' }).fill('charm');
     await page.getByRole('textbox', { name: 'Search pokemon' }).press('Enter');
 
-    await expect(page.locator('section')).toContainText(
-      'These Pokemons found your match: "char"'
+    await expect(page.getByTestId('search-query')).toContainText(
+      'These Pokemons found your match: "charm"'
     );
 
     await expect(page.getByTestId('pokemon-list')).toContainText(
@@ -23,7 +23,7 @@ test.describe.parallel('Search tests', () => {
     await expect(page.getByTestId('pokemon-list')).toContainText('#2 ivysaur');
 
     await page.goto('/search?query=pika');
-    await expect(page.locator('section')).toContainText(
+    await expect(page.getByTestId('search-query')).toContainText(
       'These Pokemons found your match: "pika"'
     );
     await expect(page.getByTestId('pokemon-list')).toContainText('#25 pikachu');
@@ -38,7 +38,7 @@ test.describe.parallel('Search tests', () => {
       .getByRole('textbox', { name: 'Search pokemon' })
       .fill('ANYTHING');
     await page.getByRole('button', { name: 'Search' }).click();
-    await expect(page.locator('section')).toContainText(
+    await expect(page.getByTestId('search-query')).toContainText(
       'No Pokemon found your match: "ANYTHING"'
     );
 
@@ -46,12 +46,12 @@ test.describe.parallel('Search tests', () => {
       .getByRole('textbox', { name: 'Search pokemon' })
       .fill('pokemon3');
     await page.getByRole('textbox', { name: 'Search pokemon' }).press('Enter');
-    await expect(page.locator('section')).toContainText(
+    await expect(page.getByTestId('search-query')).toContainText(
       'No Pokemon found your match: "pokemon3"'
     );
 
     await page.goto('/search?query=somepokemon');
-    await expect(page.locator('section')).toContainText(
+    await expect(page.getByTestId('search-query')).toContainText(
       'No Pokemon found your match: "somepokemon"'
     );
   });
