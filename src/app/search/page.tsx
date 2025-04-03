@@ -80,7 +80,10 @@ export default async function SearchPage(props: PageProps) {
 
   return (
     <section>
-      <h2 className='my-[40px] px-6 text-center text-3xl font-bold capitalize leading-10 text-purple-400 sm:text-start'>
+      <h2
+        data-testid='search-query'
+        className='my-[40px] px-6 text-center text-3xl font-bold capitalize leading-10 text-purple-400 sm:text-start'
+      >
         {pokemons.length > 0
           ? `These Pokemons found your match: "${query}"`
           : `No Pokemon found your match: "${query}"`}

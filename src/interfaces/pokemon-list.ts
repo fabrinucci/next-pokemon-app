@@ -11,7 +11,7 @@ export interface SmallPokemon {
 }
 
 export interface SmallPokemonComplete {
-  id: number;
+  id: string;
   name: string;
   url: string;
   img: string;

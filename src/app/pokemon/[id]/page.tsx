@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
-import type { Pokemon } from '@/interfaces/pokemon';
-import { capitalized } from '@/utils/capitalized';
-import { getPokemonInfo } from '@/utils/getPokemonInfo';
+import { getPokemonInfo } from '@/api/getPokemons';
 import { PokemonCard } from '@/components/pokemon';
 import { openGraphImage } from '@/app/shared-metadata';
+import { capitalized } from '@/utils/capitalized';
 import { separateString } from '@/utils/separateString';
 import { webPage } from '@/utils/links';
 
@@ -16,7 +15,7 @@ interface PageProps {
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
-  const pokemon = await loadPokemon(params.id);
+  const pokemon = await getPokemonInfo(params.id);
 
   return {
     metadataBase: new URL(webPage),
@@ -35,16 +34,13 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   };
 }
 
-const loadPokemon = async (id: string) => {
-  const pokemon = await getPokemonInfo(id);
-  return pokemon as Pokemon;
-};
-
 export default async function PokemonPage(props: PageProps) {
   const params = await props.params;
-  const pokemon = await loadPokemon(params.id);
 
-  if (!pokemon) return redirect('/');
-
-  return <PokemonCard pokemon={pokemon} />;
+  try {
+    const pokemon = await getPokemonInfo(params.id);
+    return <PokemonCard pokemon={pokemon} />;
+  } catch (error) {
+    return redirect('/');
+  }
 }
