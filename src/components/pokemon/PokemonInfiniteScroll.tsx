@@ -1,8 +1,9 @@
 'use client';
 
 import type { SmallPokemonComplete } from '@/interfaces/pokemon-list';
-import { PokemonList, SkeletonPokemonHomeCard } from './';
+import { PokemonList } from './';
 import { useInfiniteScroll } from 'hooks/useInfiniteScroll';
+import { LoadSpinner } from '../loaders';
 
 interface Props {
   initialPokemons: SmallPokemonComplete[];
@@ -17,7 +18,7 @@ export const PokemonInfiniteScroll = ({ initialPokemons }: Props) => {
   return (
     <section>
       <PokemonList pokemons={pokemons} />
-      {isLoading && <SkeletonPokemonHomeCard />}
+      {isLoading && <LoadSpinner />}
       <div ref={observerRef} className='h-10 w-full'></div>
     </section>
   );
