@@ -4,6 +4,9 @@ import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { SmallPokemonComplete } from '@/interfaces/pokemon-list';
 
 jest.mock('../../../../hooks/useInfiniteScroll');
+jest.mock('../../../../components/loaders', () => ({
+  LoadSpinner: jest.fn(() => <div data-testid='load-spinner'></div>),
+}));
 
 jest.mock('../../../../components/pokemon/PokemonList', () => ({
   PokemonList: jest.fn(({ pokemons }) => (
@@ -55,7 +58,7 @@ describe('PokemonInfiniteScroll', () => {
     });
 
     render(<PokemonInfiniteScroll initialPokemons={mockPokemons} />);
-    expect(await screen.findByText('Loading...')).toBeInTheDocument();
+    expect(await screen.findByTestId('load-spinner')).toBeInTheDocument();
   });
 
   it('Should load more Pokemons when scrolled', async () => {
