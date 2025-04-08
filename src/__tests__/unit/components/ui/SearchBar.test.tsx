@@ -21,6 +21,9 @@ describe('SearchBar', () => {
 
     expect(input).toBeInTheDocument();
     expect(searchButton).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Clear' })
+    ).not.toBeInTheDocument();
   });
 
   it('Should update input value on change', () => {
@@ -29,6 +32,23 @@ describe('SearchBar', () => {
 
     fireEvent.change(input, { target: { value: 'pikachu' } });
     expect(input).toHaveValue('pikachu');
+    const clearButton = screen.getByRole('button', { name: 'Clear' });
+    expect(clearButton).toBeInTheDocument();
+
+    fireEvent.click(clearButton);
+    expect(clearButton).not.toBeInTheDocument();
+    expect(input).toHaveValue('');
+  });
+
+  it('Should call router.push with correct query on submit', () => {
+    render(<SearchBar />);
+    const input = screen.getByPlaceholderText('Search pokemon');
+    const button = screen.getByRole('button');
+
+    fireEvent.change(input, { target: { value: 'charmander' } });
+    fireEvent.click(button);
+
+    expect(pushMock).toHaveBeenCalledWith('/search?query=charmander');
   });
 
   it('Should call router.push with correct query on submit', () => {
