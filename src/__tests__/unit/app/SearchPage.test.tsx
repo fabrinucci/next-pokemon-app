@@ -42,15 +42,28 @@ describe('SearchPage', () => {
     jest.clearAllMocks();
   });
 
-  test('Should redirect to "/" if query is empty', async () => {
+  it('Should redirect to "/" if query is empty', async () => {
     const { redirect } = require('next/navigation');
 
     await SearchPage({ searchParams: Promise.resolve({ query: '' }) });
 
+    expect(redirect).toHaveBeenCalled();
     expect(redirect).toHaveBeenCalledWith('/');
   });
 
-  test('Should render matching Pokemons', async () => {
+  it('Should redirect to "/" if query is shorter than 3 characters', async () => {
+    const { redirect } = require('next/navigation');
+
+    await SearchPage({ searchParams: Promise.resolve({ query: 'a' }) });
+    expect(redirect).toHaveBeenCalled();
+    expect(redirect).toHaveBeenCalledWith('/');
+
+    await SearchPage({ searchParams: Promise.resolve({ query: 'ch' }) });
+    expect(redirect).toHaveBeenCalled();
+    expect(redirect).toHaveBeenCalledWith('/');
+  });
+
+  it('Should render matching Pokemons', async () => {
     (pokeApi.get as jest.Mock).mockResolvedValueOnce({
       data: { results: mockPokemons },
     });
@@ -68,7 +81,7 @@ describe('SearchPage', () => {
     expect(screen.queryByText(/ivysaur/i)).not.toBeInTheDocument();
   });
 
-  test('Should render "No Pokemon found" when there are no results', async () => {
+  it('Should render "No Pokemon found" when there are no results', async () => {
     (pokeApi.get as jest.Mock).mockResolvedValueOnce({
       data: { results: [] },
     });
@@ -80,7 +93,7 @@ describe('SearchPage', () => {
     expect(screen.getByText(/No Pokemon found/i)).toBeInTheDocument();
   });
 
-  test('Should display Pokemon data correctly', async () => {
+  it('Should display Pokemon data correctly', async () => {
     (pokeApi.get as jest.Mock).mockResolvedValueOnce({
       data: { results: mockPokemons },
     });

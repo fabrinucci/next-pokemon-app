@@ -40,6 +40,24 @@ describe('SearchBar', () => {
     expect(input).toHaveValue('');
   });
 
+  it('Should disable submit button when query is less than 3 characters', async () => {
+    render(<SearchBar />);
+    const input = screen.getByPlaceholderText(/search pokemon/i);
+    const button = screen.getByRole('button', { name: /search/i });
+
+    fireEvent.change(input, { target: { value: 'ch' } });
+    expect(button).toBeDisabled();
+  });
+
+  it('Should enable submit button when query is at least 3 characters', async () => {
+    render(<SearchBar />);
+    const input = screen.getByPlaceholderText(/search pokemon/i);
+    const button = screen.getByRole('button', { name: /search/i });
+
+    fireEvent.change(input, { target: { value: 'cha' } });
+    expect(button).toBeEnabled();
+  });
+
   it('Should call router.push with correct query on submit', () => {
     render(<SearchBar />);
     const input = screen.getByPlaceholderText('Search pokemon');

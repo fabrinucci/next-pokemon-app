@@ -28,7 +28,7 @@ export function generateMetadata(): Metadata {
 
 export default async function SearchPage(props: PageProps) {
   const { query } = await props.searchParams;
-  if (!query) return redirect('/');
+  if (!query || query.length <= 2) return redirect('/');
 
   const pokemons = await getPokemonsSearch(query);
   return <SearchPagination pokemons={pokemons} query={query} />;

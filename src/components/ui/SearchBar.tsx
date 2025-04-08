@@ -10,7 +10,7 @@ export const SearchBar = () => {
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (query.trim().length === 0) return;
+    if (query.trim().length <= 2) return;
 
     router.push(`/search?query=${query.trim()}`);
   };
@@ -49,7 +49,8 @@ export const SearchBar = () => {
       <button
         type='submit'
         title='Search'
-        className='ms-2 rounded-md bg-violet-500 p-2.5 text-sm font-medium text-white focus:ring-2 focus:ring-violet-300'
+        className='ms-2 rounded-md bg-violet-500 p-2.5 text-sm font-medium text-white focus:ring-2 focus:ring-violet-300 disabled:opacity-40'
+        disabled={query.trim().length <= 2}
       >
         <SearchIcon />
         <span className='sr-only'>Search</span>
