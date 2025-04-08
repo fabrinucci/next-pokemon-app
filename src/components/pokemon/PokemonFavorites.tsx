@@ -16,14 +16,14 @@ export const PokemonFavorites = () => {
       {favoritePokemons.length === 0 ? (
         <NoFavorites />
       ) : (
-        <div>
+        <div className='p-6'>
           <h1 className='my-[40px] text-center text-5xl font-bold text-purple-400'>
             Your favorite pokemons
           </h1>
 
           <ul
             data-testid='favorite-cards'
-            className='grid grid-cols-auto-fill gap-4 p-6'
+            className='grid grid-cols-auto-fill gap-4'
           >
             {favoritePokemons.map((pokeId) => (
               <Favorite key={pokeId} pokeId={pokeId} />

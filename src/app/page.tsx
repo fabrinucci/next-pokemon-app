@@ -20,7 +20,7 @@ export default async function Home() {
   const pokemons = await getPokemons(LIMIT, OFFSET);
 
   return (
-    <section>
+    <section className='px-6'>
       <h1 className='my-[40px] text-center text-5xl font-bold text-purple-400'>
         Pokemon List
       </h1>
