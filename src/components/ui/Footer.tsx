@@ -7,13 +7,18 @@ export const Footer = () => {
     <footer className='mt-16 bg-zinc-900 text-gray-300'>
       <div className='mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8'>
         <div className='flex flex-col items-center justify-between gap-6 sm:flex-row'>
-          <p className='text-sm'>
-            © {currentYear} Pokémon App. All rights reserved.
-          </p>
+          <div className='flex flex-col gap-3'>
+            <p className='text-sm'>
+              © {currentYear} PokeBosti All rights reserved.
+            </p>
+            <p className='text-sm'>
+              Project inspired by the Fernando Herrera Pokemon app
+            </p>
+          </div>
 
           <div className='flex gap-4 text-sm'>
             <Link
-              href='https://github.com/tu-usuario'
+              href='https://github.com/fabrinucci'
               target='_blank'
               rel='noopener noreferrer'
               className='transition hover:text-purple-400'
@@ -21,15 +26,15 @@ export const Footer = () => {
               GitHub
             </Link>
             <Link
-              href='https://twitter.com/tu-usuario'
+              href='https://linkedin.com/in/fabrinucci'
               target='_blank'
               rel='noopener noreferrer'
               className='transition hover:text-purple-400'
             >
-              Twitter
+              LinkedIn
             </Link>
             <Link
-              href='mailto:tuemail@example.com'
+              href='mailto:fabrinuccidev@gmail.com'
               className='transition hover:text-purple-400'
             >
               Contact
