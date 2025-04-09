@@ -5,7 +5,7 @@ import { SearchBar } from '@/components/ui';
 
 export const Navbar = () => {
   return (
-    <nav className='flex w-full flex-col items-center justify-between gap-6 bg-neutral-800 px-[50px] py-[20px] sm:flex-row sm:gap-3'>
+    <nav className='flex w-full flex-col items-center justify-between gap-6 bg-zinc-900 px-[50px] py-[20px] sm:flex-row sm:gap-3'>
       <NavLink
         data-testid='home-link'
         href='/'
