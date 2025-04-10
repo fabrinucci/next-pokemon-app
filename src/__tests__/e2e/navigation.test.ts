@@ -177,4 +177,17 @@ test.describe.parallel('Navigation tests', () => {
       })
     ).toBeHidden();
   });
+
+  test('Search pagination works correctly', async ({ page }) => {
+    await page.goto('/search?query=ara');
+
+    await expect(page.getByRole('button', { name: 'Previous' })).toBeDisabled();
+    await expect(page.getByRole('button', { name: 'Next' })).toBeVisible();
+    await expect(page.locator('section')).toContainText('Next');
+
+    await page.getByRole('button', { name: 'Next' }).click();
+    await expect(page.getByRole('button', { name: 'Previous' })).toBeVisible();
+    await expect(page.locator('section')).toContainText('Previous');
+    await expect(page.getByRole('button', { name: 'Next' })).toBeDisabled();
+  });
 });

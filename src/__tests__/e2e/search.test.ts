@@ -29,6 +29,32 @@ test.describe.parallel('Search tests', () => {
     await expect(page.getByTestId('pokemon-list')).toContainText('#25 pikachu');
   });
 
+  test('Do not allow searching when the query is less than 3 characters long', async ({
+    page,
+  }) => {
+    await page.goto('/');
+
+    await page.getByRole('textbox', { name: 'Search pokemon' }).fill('');
+    await page.getByRole('textbox', { name: 'Search pokemon' }).press('Enter');
+    await expect(page).toHaveURL('/');
+
+    await page.getByRole('textbox', { name: 'Search pokemon' }).fill('a');
+    await page.getByRole('textbox', { name: 'Search pokemon' }).press('Enter');
+    await expect(page).toHaveURL('/');
+
+    await page.getByRole('textbox', { name: 'Search pokemon' }).fill('ar');
+    await page.getByRole('textbox', { name: 'Search pokemon' }).press('Enter');
+    await expect(page).toHaveURL('/');
+
+    await page.getByRole('textbox', { name: 'Search pokemon' }).fill('ara');
+    await page.getByRole('textbox', { name: 'Search pokemon' }).press('Enter');
+    await expect(page).toHaveURL('/search?query=ara');
+
+    await expect(page.getByTestId('search-query')).toContainText(
+      'These Pokemons found your match: "ara"'
+    );
+  });
+
   test('Show error message when query does not match any pokemon', async ({
     page,
   }) => {
@@ -59,7 +85,15 @@ test.describe.parallel('Search tests', () => {
   test('Go to home when there is no correct search url', async ({ page }) => {
     await page.goto('/');
 
-    const queries = ['?query=', '?query', '?quer', '?', ''];
+    const queries = [
+      '?query=ar',
+      '?query=a',
+      '?query=',
+      '?query',
+      '?quer',
+      '?',
+      '',
+    ];
 
     for (const query of queries) {
       await page.goto(`/search${query}`);
