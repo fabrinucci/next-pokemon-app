@@ -4,6 +4,7 @@ import { Navbar } from '@/components/ui';
 import { openGraphImage } from '@/app/shared-metadata';
 import { webPage } from '@/utils/links';
 import '@/app/globals.css';
+import { Footer } from '@/components/ui/Footer';
 
 const mainFont = Lato({
   weight: ['300', '400', '700', '900'],
@@ -37,11 +38,14 @@ export default function RootLayout({
 }) {
   return (
     <html className={`${mainFont.className} dark h-full`} lang='en'>
-      <body className='bg-black'>
-        <header>
-          <Navbar />
-        </header>
-        <main>{children}</main>
+      <body className='bg-black text-white'>
+        <div className='flex min-h-screen flex-col'>
+          <header>
+            <Navbar />
+          </header>
+          <main className='flex-1'>{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

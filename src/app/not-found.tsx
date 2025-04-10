@@ -1,9 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 
 import { urlConfig } from '@/config/urlConfig';
+import { ReturnHomeLink } from '@/components/buttons';
 const { DREAM_WORLD_URL } = urlConfig;
 
 export default function NotFound() {
@@ -23,12 +23,9 @@ export default function NotFound() {
         />
       </figure>
 
-      <Link
-        className='mt-10 flex h-[50px] w-[190px] items-center justify-center rounded-lg bg-purple-600 px-4 text-white transition-transform duration-300 will-change-transform hover:scale-105'
-        href='/'
-      >
-        Return home
-      </Link>
+      <div className='mt-10'>
+        <ReturnHomeLink />
+      </div>
     </div>
   );
 }

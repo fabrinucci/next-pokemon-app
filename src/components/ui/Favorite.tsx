@@ -18,7 +18,7 @@ export const Favorite = ({ pokeId }: FavoriteProps) => {
         <Image
           className='h-[200px] w-full p-2'
           src={`${ARTWORK_URL}/${pokeId}.png`}
-          alt='Pokemon Favorite'
+          alt={`Pokemon Favorite #${pokeId}`}
           width={100}
           height={100}
           priority

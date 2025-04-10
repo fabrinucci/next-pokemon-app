@@ -24,6 +24,7 @@
       "@/app/*": ["app/*"],
       "@/components/*": ["components/*"],
       "@/config/*": ["config/*"],
+      "@/hooks/*": ["hooks/*"],
       "@/interfaces/*": ["interfaces/*"],
       "@/utils/*": ["utils/*"],
     },

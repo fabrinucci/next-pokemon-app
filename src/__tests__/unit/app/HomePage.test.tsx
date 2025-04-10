@@ -1,16 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import HomePage from '@/app/page';
-import pokeApi from '@/api/pokeApi';
+import { getPokemons } from '@/api/getPokemons';
 
 jest.mock('next/navigation', () => require('next-router-mock'));
 
 jest.mock('../../../components/pokemon', () => ({
-  PokemonList: jest.fn(() => (
-    <div data-testid='pokemon-list'>PokemonList component</div>
+  PokemonInfiniteScroll: jest.fn(() => (
+    <div data-testid='infinite-scroll'>PokemonInfiniteScroll</div>
   )),
 }));
 
-jest.mock('../../../api/pokeApi');
+jest.mock('../../../api/getPokemons');
 
 describe('HomePage', () => {
   const mockPokemons = [
@@ -24,18 +24,20 @@ describe('HomePage', () => {
     },
   ];
 
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('Should render title and PokemonList', async () => {
-    (pokeApi.get as jest.Mock).mockResolvedValue({
-      data: { results: mockPokemons },
-    });
+    (getPokemons as jest.Mock).mockResolvedValueOnce(mockPokemons);
     render(await HomePage());
 
     expect(screen.getByText('Pokemon List')).toBeInTheDocument();
-    expect(screen.getByTestId('pokemon-list')).toBeInTheDocument();
+    expect(screen.getByTestId('infinite-scroll')).toBeInTheDocument();
   });
 
   it('Should handle errors in Pokemon loading', async () => {
-    (pokeApi.get as jest.Mock).mockRejectedValue(new Error('API Error'));
+    (getPokemons as jest.Mock).mockRejectedValue(new Error('API Error'));
 
     await expect(HomePage()).rejects.toThrow('API Error');
   });

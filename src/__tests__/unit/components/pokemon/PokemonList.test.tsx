@@ -12,13 +12,13 @@ jest.mock('../../../../components/pokemon/PokemonHomeCard', () => ({
 describe('PokemonList', () => {
   const mockPokemons = [
     {
-      id: 1,
+      id: '1',
       name: 'bulbasaur',
       img: 'https://pokemon/bulbasaur.svg',
       url: 'https://pokemon/bulbasaur.com',
     },
     {
-      id: 4,
+      id: '4',
       name: 'charmander',
       img: 'https://pokemon/charmander.svg',
       url: 'https://pokemon/charmander.com',

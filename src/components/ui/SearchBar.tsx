@@ -2,17 +2,17 @@
 
 import { type ChangeEvent, type FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { ClearIcon, SearchIcon } from '../icons';
 
 export const SearchBar = () => {
   const [query, setQuery] = useState('');
-
   const router = useRouter();
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (query.trim().length === 0) return;
+    if (query.trim().length <= 2) return;
 
-    router.push(`/search?query=${query}`);
+    router.push(`/search?query=${query.trim()}`);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,31 +29,30 @@ export const SearchBar = () => {
         <input
           onChange={handleChange}
           type='text'
-          className='block w-full rounded-md border border-gray-200 bg-gray-600 p-2.5 text-white placeholder:text-gray-200 focus:outline-4 focus:outline-violet-500'
+          className='block w-full rounded-md border border-gray-200 bg-gray-600 p-2.5 pr-8 text-white placeholder:text-gray-200 focus:outline-4 focus:outline-violet-500'
           placeholder='Search pokemon'
           value={query}
           required
         />
+        {query && (
+          <button
+            type='button'
+            onClick={() => setQuery('')}
+            className='absolute right-[8px] top-[10px]'
+            title='Clear'
+          >
+            <ClearIcon />
+            <span className='sr-only'>Clear</span>
+          </button>
+        )}
       </div>
       <button
         type='submit'
-        className='ms-2 rounded-md bg-violet-500 p-2.5 text-sm font-medium text-white focus:ring-2 focus:ring-violet-300'
+        title='Search'
+        className='ms-2 rounded-md bg-violet-500 p-2.5 text-sm font-medium text-white focus:ring-2 focus:ring-violet-300 disabled:opacity-40'
+        disabled={query.trim().length <= 2}
       >
-        <svg
-          className='h-[26px] w-4'
-          aria-hidden='true'
-          xmlns='http://www.w3.org/2000/svg'
-          fill='none'
-          viewBox='0 0 20 20'
-        >
-          <path
-            stroke='currentColor'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth='2'
-            d='m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z'
-          />
-        </svg>
+        <SearchIcon />
         <span className='sr-only'>Search</span>
       </button>
     </form>

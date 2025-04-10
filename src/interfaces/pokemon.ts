@@ -19,6 +19,16 @@ export interface Pokemon {
   weight: number;
 }
 
+export interface PokemonSimplified {
+  id: number;
+  name: string;
+  sprites: Sprites;
+  abilities: Ability[];
+  types: Type[];
+  height: number;
+  weight: number;
+}
+
 export interface Ability {
   ability: Species;
   is_hidden: boolean;

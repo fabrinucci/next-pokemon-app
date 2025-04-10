@@ -5,7 +5,7 @@ jest.mock('next/navigation', () => require('next-router-mock'));
 
 describe('PokemonHomeCard', () => {
   const mockPokemon = {
-    id: 1,
+    id: '1',
     name: 'bulbasaur',
     img: 'https://pokemon/bulbasaur.svg',
     url: 'https://pokemon/bulbasaur.com',

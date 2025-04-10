@@ -49,8 +49,8 @@ test.describe.parallel('Navigation tests', () => {
       page.getByRole('link', { name: '#10 caterpie caterpie' })
     ).toBeVisible();
     await expect(
-      page.getByRole('link', { name: '#151 mew mew' })
-    ).toBeVisible();
+      page.getByRole('link', { name: '#21 spearow spearow' })
+    ).toBeHidden();
   });
 
   test('Navigation pokemon card', async ({ page }) => {
@@ -176,5 +176,18 @@ test.describe.parallel('Navigation tests', () => {
         exact: true,
       })
     ).toBeHidden();
+  });
+
+  test('Search pagination works correctly', async ({ page }) => {
+    await page.goto('/search?query=ara');
+
+    await expect(page.getByRole('button', { name: 'Previous' })).toBeDisabled();
+    await expect(page.getByRole('button', { name: 'Next' })).toBeVisible();
+    await expect(page.locator('section')).toContainText('Next');
+
+    await page.getByRole('button', { name: 'Next' }).click();
+    await expect(page.getByRole('button', { name: 'Previous' })).toBeVisible();
+    await expect(page.locator('section')).toContainText('Previous');
+    await expect(page.getByRole('button', { name: 'Next' })).toBeDisabled();
   });
 });

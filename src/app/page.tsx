@@ -1,16 +1,8 @@
 import { Metadata } from 'next';
-import type {
-  PokemonListResponse,
-  SmallPokemon,
-  SmallPokemonComplete,
-} from '@/interfaces/pokemon-list';
-import pokeApi from '@/api/pokeApi';
-import { PokemonList } from '@/components/pokemon';
 import { openGraphImage } from './shared-metadata';
 import { webPage } from '@/utils/links';
-import { urlConfig } from '@/config/urlConfig';
-
-const { DREAM_WORLD_URL } = urlConfig;
+import { PokemonInfiniteScroll } from '@/components/pokemon';
+import { getPokemons } from '../api';
 
 export const metadata: Metadata = {
   metadataBase: new URL(webPage),
@@ -21,24 +13,18 @@ export const metadata: Metadata = {
   },
 };
 
-const loadPokemons = async () => {
-  const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=151');
-  const pokemons: SmallPokemon[] = data.results.map((pokemon, index) => ({
-    ...pokemon,
-    id: index + 1,
-    img: `${DREAM_WORLD_URL}/${index + 1}.svg`,
-  }));
-  return pokemons as SmallPokemonComplete[];
-};
+const LIMIT = 20;
+const OFFSET = 0;
 
 export default async function Home() {
-  const pokemons = await loadPokemons();
+  const pokemons = await getPokemons(LIMIT, OFFSET);
+
   return (
-    <section>
+    <section className='px-6'>
       <h1 className='my-[40px] text-center text-5xl font-bold text-purple-400'>
         Pokemon List
       </h1>
-      <PokemonList pokemons={pokemons} />
+      <PokemonInfiniteScroll initialPokemons={pokemons} />
     </section>
   );
 }

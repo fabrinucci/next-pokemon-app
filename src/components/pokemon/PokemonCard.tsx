@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import confetti from 'canvas-confetti';
 
-import type { Pokemon } from '@/interfaces/pokemon';
+import type { PokemonSimplified } from '@/interfaces/pokemon';
 import localFavorites from '@/utils/localFavorites';
 import { capitalized } from '@/utils/capitalized';
 import { separateString } from '@/utils/separateString';
 import { PrimaryButton, SecondaryButton } from '../buttons';
 
 interface PokemonCardProps {
-  pokemon: Pokemon;
+  pokemon: PokemonSimplified;
 }
 
 const notFoundImg = '/img/not_found_img.webp';
