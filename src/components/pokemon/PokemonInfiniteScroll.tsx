@@ -18,7 +18,11 @@ export const PokemonInfiniteScroll = ({ initialPokemons }: Props) => {
   return (
     <section>
       <PokemonList pokemons={pokemons} />
-      {isLoading && <LoadSpinner />}
+      {isLoading && (
+        <div className='mt-4'>
+          <LoadSpinner />
+        </div>
+      )}
       <div ref={observerRef} className='h-10 w-full'></div>
     </section>
   );

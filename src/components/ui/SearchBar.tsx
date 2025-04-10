@@ -1,18 +1,28 @@
 'use client';
 
-import { type ChangeEvent, type FormEvent, useState } from 'react';
+import {
+  type ChangeEvent,
+  type FormEvent,
+  useState,
+  useTransition,
+} from 'react';
 import { useRouter } from 'next/navigation';
 import { ClearIcon, SearchIcon } from '../icons';
+import { LoadSpinner } from '../loaders';
 
 export const SearchBar = () => {
   const [query, setQuery] = useState('');
+  const [isPending, startTransition] = useTransition();
+
   const router = useRouter();
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (query.trim().length <= 2) return;
 
-    router.push(`/search?query=${query.trim()}`);
+    startTransition(() => {
+      router.push(`/search?query=${query.trim()}`);
+    });
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,23 +48,30 @@ export const SearchBar = () => {
           <button
             type='button'
             onClick={() => setQuery('')}
-            className='absolute right-[8px] top-[10px]'
+            className='absolute right-[8px] top-[10px] disabled:opacity-45'
             title='Clear'
+            disabled={isPending}
           >
             <ClearIcon />
             <span className='sr-only'>Clear</span>
           </button>
         )}
       </div>
-      <button
-        type='submit'
-        title='Search'
-        className='ms-2 rounded-md bg-violet-500 p-2.5 text-sm font-medium text-white focus:ring-2 focus:ring-violet-300 disabled:opacity-40'
-        disabled={query.trim().length <= 2}
-      >
-        <SearchIcon />
-        <span className='sr-only'>Search</span>
-      </button>
+      {isPending ? (
+        <div className='ms-3'>
+          <LoadSpinner />
+        </div>
+      ) : (
+        <button
+          type='submit'
+          title='Search'
+          className='ms-2 rounded-md bg-violet-500 p-2.5 text-sm font-medium text-white focus:ring-2 focus:ring-violet-300 disabled:opacity-40'
+          disabled={query.trim().length <= 2}
+        >
+          <SearchIcon />
+          <span className='sr-only'>Search</span>
+        </button>
+      )}
     </form>
   );
 };
