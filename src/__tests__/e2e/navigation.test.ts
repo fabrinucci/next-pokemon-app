@@ -182,12 +182,16 @@ test.describe.parallel('Navigation tests', () => {
     await page.goto('/search?query=ara');
 
     await expect(page.getByRole('button', { name: 'Previous' })).toBeDisabled();
-    await expect(page.getByRole('button', { name: 'Next' })).toBeVisible();
+    await expect(
+      page.getByRole('button', { name: 'Next', exact: true })
+    ).toBeVisible();
     await expect(page.locator('section')).toContainText('Next');
 
-    await page.getByRole('button', { name: 'Next' }).click();
+    await page.getByRole('button', { name: 'Next', exact: true }).click();
     await expect(page.getByRole('button', { name: 'Previous' })).toBeVisible();
     await expect(page.locator('section')).toContainText('Previous');
-    await expect(page.getByRole('button', { name: 'Next' })).toBeDisabled();
+    await expect(
+      page.getByRole('button', { name: 'Next', exact: true })
+    ).toBeDisabled();
   });
 });
