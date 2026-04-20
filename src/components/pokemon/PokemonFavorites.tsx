@@ -8,7 +8,22 @@ export const PokemonFavorites = () => {
   const [favoritePokemons, setFavoritesPokemons] = useState<number[]>([]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFavoritesPokemons(localFavorites.pokemons());
+  }, []);
+
+  useEffect(() => {
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'favorites') {
+        setFavoritesPokemons(localFavorites.pokemons());
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   return (

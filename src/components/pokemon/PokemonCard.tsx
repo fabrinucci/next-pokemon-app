@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import confetti from 'canvas-confetti';
 
@@ -20,14 +20,18 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    setIsFavorite(localFavorites.existInFavorites(pokemon?.id));
-  }, [pokemon?.id]);
+    if (!pokemon?.id) return;
 
-  const handleFavorites = () => {
-    localFavorites.toggleFavorites(pokemon?.id);
-    setIsFavorite(!isFavorite);
+    const exists = localFavorites.existInFavorites(pokemon.id);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsFavorite(exists);
+  }, [pokemon.id]);
 
-    if (isFavorite) return;
+  const handleToggleFavorites = useCallback(() => {
+    if (!pokemon?.id) return;
+
+    localFavorites.toggleFavorites(pokemon.id);
+    setIsFavorite((prev) => !prev);
 
     confetti({
       zIndex: 999,
@@ -40,7 +44,7 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
         y: 0,
       },
     });
-  };
+  }, [pokemon.id]);
 
   return (
     <article className='grid gap-6 px-6 py-10 md:grid-cols-percentage md:gap-[2%]'>
@@ -69,14 +73,14 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
           {!isFavorite ? (
             <PrimaryButton
               data-testid='button-favorite'
-              onClick={handleFavorites}
+              onClick={handleToggleFavorites}
             >
               Save to favorites
             </PrimaryButton>
           ) : (
             <SecondaryButton
               data-testid='button-favorite'
-              onClick={handleFavorites}
+              onClick={handleToggleFavorites}
             >
               Remove from favorites
             </SecondaryButton>
