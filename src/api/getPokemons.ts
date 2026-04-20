@@ -36,6 +36,7 @@ export const getPokemons = async (limit: number, offset: number) => {
 
     return pokemons;
   } catch (error) {
+    console.error('Failed to fetch Pokemon:', error);
     throw new Error('Failed to fetch Pokemon data');
   }
 };
@@ -82,6 +83,7 @@ export const getPokemonsSearch = async (query: string) => {
 
     return pokemons;
   } catch (error) {
+    console.error('Failed to fetch Pokemon:', error);
     throw new Error('Failed to fetch Pokemon data');
   }
 };
@@ -103,6 +105,7 @@ export const getPokemonInfo = async (nameOrId: string) => {
 
     return pokemon;
   } catch (error) {
+    console.error('Failed to fetch Pokemon:', error);
     throw new Error('Failed to fetch Pokemon data');
   }
 };
