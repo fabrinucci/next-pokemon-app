@@ -36,11 +36,13 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 
 export default async function PokemonPage(props: PageProps) {
   const params = await props.params;
+  let pokemon;
 
   try {
-    const pokemon = await getPokemonInfo(params.id);
-    return <PokemonCard pokemon={pokemon} />;
+    pokemon = await getPokemonInfo(params.id);
   } catch (error) {
+    console.error('Failed to fetch Pokemon:', error);
     return redirect('/');
   }
+  return <PokemonCard pokemon={pokemon} />;
 }
