@@ -1,31 +1,42 @@
+const FAVORITES_KEY = 'favorites';
+
+const getFavorites = (): number[] => {
+  if (typeof window === 'undefined') return [];
+  const stored = localStorage.getItem(FAVORITES_KEY);
+  return stored ? JSON.parse(stored) : [];
+};
+
+const saveFavorites = (favorites: number[]) => {
+  if (typeof window === 'undefined') return;
+  localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+};
+
 const toggleFavorites = (id: number) => {
-  let favorites: number[] = JSON.parse(
-    localStorage.getItem('favorites') || '[]'
-  );
+  let favorites = getFavorites();
 
   if (favorites.includes(id)) {
     favorites = favorites.filter((pokeId) => pokeId !== id);
   } else {
     favorites.push(id);
   }
-  localStorage.setItem('favorites', JSON.stringify(favorites));
+
+  saveFavorites(favorites);
+  return favorites;
 };
 
-const existInFavorites = (id: number): boolean => {
-  const favorites: number[] = JSON.parse(
-    localStorage.getItem('favorites') || '[]'
-  );
-  return favorites.includes(id);
+const existInFavorites = (id: number | undefined): boolean => {
+  if (!id) return false;
+  return getFavorites().includes(id);
 };
 
-const pokemons = (): number[] => {
-  return JSON.parse(localStorage.getItem('favorites') || '[]');
+const getAllPokemons = (): number[] => {
+  return getFavorites();
 };
 
 const localFavorites = {
   existInFavorites,
   toggleFavorites,
-  pokemons,
+  pokemons: getAllPokemons,
 };
 
 export default localFavorites;
