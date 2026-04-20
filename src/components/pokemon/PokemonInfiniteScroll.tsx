@@ -2,7 +2,7 @@
 
 import type { SmallPokemonComplete } from '@/interfaces/pokemon-list';
 import { PokemonList } from './';
-import { useInfiniteScroll } from 'hooks/useInfiniteScroll';
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { LoadSpinner } from '../loaders';
 
 interface Props {
