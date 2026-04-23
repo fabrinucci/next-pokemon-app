@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { pokeApi } from '../api';
 import type {
   Pokemon,
@@ -36,7 +37,7 @@ export const getPokemons = async (limit: number, offset: number) => {
 
     return pokemons;
   } catch (error) {
-    console.error('Failed to fetch Pokemon:', error);
+    console.error('Unexpected error while fetching Pokemon:', error);
     throw new Error('Failed to fetch Pokemon data');
   }
 };
@@ -83,7 +84,7 @@ export const getPokemonsSearch = async (query: string) => {
 
     return pokemons;
   } catch (error) {
-    console.error('Failed to fetch Pokemon:', error);
+    console.error('Unexpected error while fetching Pokemon:', error);
     throw new Error('Failed to fetch Pokemon data');
   }
 };
@@ -105,7 +106,10 @@ export const getPokemonInfo = async (nameOrId: string) => {
 
     return pokemon;
   } catch (error) {
-    console.error('Failed to fetch Pokemon:', error);
+    if (axios.isAxiosError(error) && error.response?.status === 404) {
+      return null;
+    }
+    console.error('Unexpected error while fetching Pokemon:', error);
     throw new Error('Failed to fetch Pokemon data');
   }
 };

@@ -17,6 +17,20 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
   const pokemon = await getPokemonInfo(params.id);
 
+  if (!pokemon) {
+    return {
+      metadataBase: new URL(webPage),
+      title: 'Pokemon not found',
+      description: 'The pokemon you are looking for does not exist.',
+      keywords: ['pokemon, pokedex, not found'],
+      openGraph: {
+        ...openGraphImage,
+        title: 'Pokemon not found',
+        description: 'The pokemon you are looking for does not exist.',
+      },
+    };
+  }
+
   return {
     metadataBase: new URL(webPage),
     title: separateString(capitalized(pokemon.name)),
@@ -36,13 +50,9 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 
 export default async function PokemonPage(props: PageProps) {
   const params = await props.params;
-  let pokemon;
+  const pokemon = await getPokemonInfo(params.id);
 
-  try {
-    pokemon = await getPokemonInfo(params.id);
-  } catch (error) {
-    console.error('Failed to fetch Pokemon:', error);
-    return redirect('/');
-  }
+  if (!pokemon) return redirect('/');
+
   return <PokemonCard pokemon={pokemon} />;
 }
