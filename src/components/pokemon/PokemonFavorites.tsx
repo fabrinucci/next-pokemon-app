@@ -38,7 +38,7 @@ export const PokemonFavorites = () => {
 
           <ul
             data-testid='favorite-cards'
-            className='grid grid-cols-auto-fill gap-4'
+            className='grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7'
           >
             {favoritePokemons.map((pokeId) => (
               <Favorite key={pokeId} pokeId={pokeId} />

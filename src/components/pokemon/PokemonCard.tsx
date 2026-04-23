@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import Image from 'next/image';
 import confetti from 'canvas-confetti';
 
 import type { PokemonSimplified } from '@/interfaces/pokemon';
@@ -50,16 +49,14 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
     <article className='grid gap-6 px-6 py-10 md:grid-cols-percentage md:gap-[2%]'>
       <section className='min-h-[360px] rounded-xl bg-zinc-900'>
         <div className='flex h-full w-full items-center justify-center'>
-          <Image
-            className='max-w-[180px]'
+          <img
+            className='max-w-[180px] object-contain'
             src={
               pokemon?.sprites.other?.dream_world.front_default ||
               pokemon?.sprites.other?.['official-artwork'].front_default ||
               notFoundImg
             }
             alt={pokemon?.name}
-            width={300}
-            height={300}
           />
         </div>
       </section>
@@ -143,29 +140,21 @@ export const PokemonCard = ({ pokemon }: PokemonCardProps) => {
               </p>
             ) : (
               <div className='flex justify-around'>
-                <Image
+                <img
                   src={pokemon.sprites.front_default}
                   alt={`${pokemon.name} sprite`}
-                  height={100}
-                  width={100}
                 />
-                <Image
+                <img
                   src={pokemon.sprites.back_default}
                   alt={`${pokemon.name} sprite`}
-                  height={100}
-                  width={100}
                 />
-                <Image
+                <img
                   src={pokemon.sprites.front_shiny}
                   alt={`${pokemon.name} sprite`}
-                  height={100}
-                  width={100}
                 />
-                <Image
+                <img
                   src={pokemon.sprites.back_shiny}
                   alt={`${pokemon.name} sprite`}
-                  height={100}
-                  width={100}
                 />
               </div>
             )}
