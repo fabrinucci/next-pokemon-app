@@ -25,7 +25,7 @@ describe('PokemonById', () => {
   });
 
   it('Should redirect to "/" if it is not a valid Pokemon', async () => {
-    (getPokemonInfo as jest.Mock).mockRejectedValue(new Error('API Error'));
+    (getPokemonInfo as jest.Mock).mockResolvedValue(null);
 
     const { redirect } = require('next/navigation');
     await PokemonById({ params: Promise.resolve({ id: 'anything' }) });
