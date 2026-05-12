@@ -12,8 +12,11 @@ import { urlConfig } from '@/config/urlConfig';
 const { DREAM_WORLD_URL, ARTWORK_URL } = urlConfig;
 const notFoundImg = '/img/not_found_img.webp';
 
+const MAX_LIMIT = 50;
+const MAX_OFFSET = 1000;
+
 export const getPokemons = async (limit: number, offset: number) => {
-  if (limit <= 0 || offset < 0) {
+  if (limit <= 0 || limit > MAX_LIMIT || offset < 0 || offset > MAX_OFFSET) {
     throw new Error('Invalid limit or offset values');
   }
 
