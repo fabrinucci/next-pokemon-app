@@ -7,45 +7,69 @@ interface Props {
   limit: number;
 }
 
+const MAX_POKEMONS = 500;
+
 export const useInfiniteScroll = ({ initialPokemons, limit }: Props) => {
   const [pokemons, setPokemons] =
     useState<SmallPokemonComplete[]>(initialPokemons);
   const [offset, setOffset] = useState(initialPokemons.length);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasMorePokemons, setHasMorePokemons] = useState(true);
+
   const observerRef = useRef(null);
+  const isFetchingRef = useRef(false);
 
   const fetchPokemons = useCallback(async () => {
-    if (isLoading) return;
+    if (isFetchingRef.current || !hasMorePokemons) return;
+
+    if (offset >= MAX_POKEMONS) {
+      setHasMorePokemons(false);
+      return;
+    }
+
+    isFetchingRef.current = true;
     setIsLoading(true);
 
     try {
       const newPokemons = await getPokemons(limit, offset);
+
+      if (!newPokemons.length) {
+        setHasMorePokemons(false);
+        return;
+      }
+
       setPokemons((prev) => [...prev, ...newPokemons]);
       setOffset((prev) => prev + limit);
     } catch (error) {
       console.error('Error fetching Pokémon:', error);
     } finally {
+      isFetchingRef.current = false;
       setIsLoading(false);
     }
-  }, [isLoading, limit, offset]);
+  }, [limit, offset, hasMorePokemons]);
 
   useEffect(() => {
+    if (!hasMorePokemons) return;
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && !isLoading) {
+        const entry = entries[0];
+
+        if (entry.isIntersecting) {
           fetchPokemons();
         }
       },
-      { threshold: 1.0 }
+      {
+        rootMargin: '200px',
+      }
     );
 
-    const refCurrent = observerRef.current;
-    if (refCurrent) observer.observe(refCurrent);
+    const currentRef = observerRef.current;
+    if (currentRef) observer.observe(currentRef);
 
     return () => {
-      if (refCurrent) observer.unobserve(refCurrent);
+      observer.disconnect();
     };
-  }, [fetchPokemons, isLoading]);
+  }, [fetchPokemons, hasMorePokemons]);
 
   return { pokemons, observerRef, isLoading };
 };
