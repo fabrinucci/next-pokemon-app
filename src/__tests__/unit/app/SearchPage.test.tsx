@@ -64,7 +64,7 @@ describe('SearchPage', () => {
   });
 
   it('Should render matching Pokemons', async () => {
-    (pokeApi.get as jest.Mock).mockResolvedValueOnce({
+    (pokeApi.get as jest.Mock).mockResolvedValue({
       data: { results: mockPokemons },
     });
 
@@ -82,7 +82,7 @@ describe('SearchPage', () => {
   });
 
   it('Should render "No Pokemon found" when there are no results', async () => {
-    (pokeApi.get as jest.Mock).mockResolvedValueOnce({
+    (pokeApi.get as jest.Mock).mockResolvedValue({
       data: { results: [] },
     });
 
@@ -94,7 +94,7 @@ describe('SearchPage', () => {
   });
 
   it('Should display Pokemon data correctly', async () => {
-    (pokeApi.get as jest.Mock).mockResolvedValueOnce({
+    (pokeApi.get as jest.Mock).mockResolvedValue({
       data: { results: mockPokemons },
     });
 
