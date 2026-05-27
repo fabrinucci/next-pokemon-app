@@ -1,7 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-
 import { urlConfig } from '@/config/urlConfig';
 import { ReturnHomeLink } from '@/components/buttons';
 const { DREAM_WORLD_URL } = urlConfig;
@@ -14,12 +12,10 @@ export default function NotFound() {
         We can not find the page you are looking for
       </p>
       <figure className='opacity-30'>
-        <Image
-          className='mt-10'
+        <img
+          className='mt-10 h-60 w-60'
           src={`${DREAM_WORLD_URL}/97.svg`}
           alt='Not found image'
-          width={200}
-          height={200}
         />
       </figure>
 
