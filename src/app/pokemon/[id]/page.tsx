@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { getPokemonInfo } from '@/api/getPokemons';
 import { PokemonCard } from '@/components/pokemon';
 import { openGraphImage } from '@/app/shared-metadata';
@@ -52,7 +52,7 @@ export default async function PokemonPage(props: PageProps) {
   const params = await props.params;
   const pokemon = await getPokemonInfo(params.id);
 
-  if (!pokemon) return redirect('/');
+  if (!pokemon) return notFound();
 
   return <PokemonCard pokemon={pokemon} />;
 }
