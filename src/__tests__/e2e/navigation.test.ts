@@ -7,10 +7,10 @@ test.describe.parallel('Navigation tests', () => {
     const homeLink = page.getByTestId('home-link');
     const favoritesLink = page.getByRole('link', { name: 'Favorites' });
 
-    const bulbasaur = page.getByRole('link', {
-      name: '#1 bulbasaur',
-    });
-    await bulbasaur.click();
+    await expect(
+      page.getByRole('link', { name: '#1 bulbasaur bulbasaur' })
+    ).toBeVisible();
+    await page.getByRole('link', { name: '#1 bulbasaur bulbasaur' }).click();
 
     await expect(page).toHaveURL('/pokemon/bulbasaur');
 
