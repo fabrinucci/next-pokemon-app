@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
-  redirect: jest.fn(),
+  notFound: jest.fn(),
 }));
 
 jest.mock('../../../api/getPokemons');
@@ -24,12 +24,12 @@ describe('PokemonById', () => {
     jest.clearAllMocks();
   });
 
-  it('Should redirect to "/" if it is not a valid Pokemon', async () => {
+  it('Should render notFound page if it is not a valid Pokemon', async () => {
     (getPokemonInfo as jest.Mock).mockResolvedValue(null);
 
-    const { redirect } = require('next/navigation');
+    const { notFound } = require('next/navigation');
     await PokemonById({ params: Promise.resolve({ id: 'anything' }) });
-    expect(redirect).toHaveBeenCalledWith('/');
+    expect(notFound).toHaveBeenCalled();
   });
 
   it('Should render the Pokemon correctly', async () => {
