@@ -124,14 +124,22 @@ test.describe.parallel('Navigation tests', () => {
     await expect(page.getByRole('link', { name: 'Return home' })).toBeVisible();
   });
 
-  test('Go to home page when there are no pokemons', async ({ page }) => {
+  test('Show not found page when there are no pokemons', async ({ page }) => {
     await page.goto('/');
 
     let pokemons = ['anything', 'ivy', '25055', false];
 
     for (const pokemon of pokemons) {
       await page.goto(`pokemon/${pokemon}`);
-      await expect(page).toHaveURL('/');
+      await expect(page.getByRole('heading', { name: 'Ups!' })).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Ups!' })).toBeVisible();
+      await expect(page.getByText('Team Rocket has stolen this')).toBeVisible();
+      await expect(
+        page.getByRole('img', { name: 'Not found image' })
+      ).toBeVisible();
+      await expect(
+        page.getByRole('link', { name: 'Return home' })
+      ).toBeVisible();
     }
   });
 
